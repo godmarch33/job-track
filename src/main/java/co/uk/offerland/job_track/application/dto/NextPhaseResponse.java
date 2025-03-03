@@ -1,0 +1,1 @@
+package co.uk.offerland.job_track.application.dto;import java.time.Instant;import lombok.AllArgsConstructor;import lombok.Data;import lombok.NoArgsConstructor;@Data@AllArgsConstructor@NoArgsConstructorpublic class NextPhaseResponse {    private String name;    private Instant time;}
