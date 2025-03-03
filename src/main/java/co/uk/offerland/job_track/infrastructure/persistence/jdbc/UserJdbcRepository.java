@@ -1,0 +1,1 @@
+package co.uk.offerland.job_track.infrastructure.persistence.jdbc;import java.util.UUID;import org.springframework.data.jpa.repository.JpaRepository;import co.uk.offerland.job_track.domain.entity.UserEntity;public interface UserJdbcRepository extends JpaRepository<UserEntity, UUID> {}
