@@ -1,1 +1,0 @@
-package co.uk.offerland.job_track.config;import dev.langchain4j.service.TokenStream;public interface StreamingAssistant {    TokenStream chat(String msg);}

@@ -1,1 +1,0 @@
-package co.uk.offerland.job_track.application.dto.user;import jakarta.validation.constraints.NotEmpty;import lombok.Data;@Datapublic class CreateJobRequest {    private String company;    private String title;    private String location;    private String salary;    @NotEmpty(message = "Please provide link")    private String link;    private String companyLogo;}

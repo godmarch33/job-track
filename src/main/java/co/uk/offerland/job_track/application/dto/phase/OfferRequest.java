@@ -1,1 +1,0 @@
-package co.uk.offerland.job_track.application.dto.phase;import jakarta.validation.constraints.NotNull;import lombok.Data;@Datapublic class OfferRequest {    @NotNull(message = "offerStatus can't be empty")    private String offerAction;}

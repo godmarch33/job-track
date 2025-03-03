@@ -1,1 +1,0 @@
-package co.uk.offerland.job_track.infrastructure.persistence.r2dbc;import java.util.UUID;import org.springframework.data.r2dbc.repository.R2dbcRepository;import co.uk.offerland.job_track.domain.entity.JobPhaseEntity;public interface JobR2dbcPhaseRepository extends R2dbcRepository<JobPhaseEntity, UUID> {}
