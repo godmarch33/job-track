@@ -1,0 +1,1 @@
+package co.uk.offerland.job_track.application.dto.phase;import jakarta.validation.constraints.NotNull;import lombok.Data;@Datapublic class SchedulePhaseRequest {    @NotNull(message = "schedule time canot be empty")    private String scheduleTime;}

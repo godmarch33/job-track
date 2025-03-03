@@ -1,0 +1,1 @@
+package co.uk.offerland.job_track.infrastructure.exception;public class JobNotFoundException extends RuntimeException {    public JobNotFoundException(String message) {        super(message);    }}

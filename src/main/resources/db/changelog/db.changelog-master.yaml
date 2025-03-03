@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - include:
+      file: "/db/changelog/0001_user_schema.yaml"
+  - include:
+      file: "/db/changelog/0002_jobs_schema.yaml"
+  - include:
+      file: "/db/changelog/0003_create_available-phases-table.yaml"
+  - include:
+      file: "/db/changelog/0004-create-job-phases-table.yaml"
+  - include:
+      file: "/db/changelog/0005-create-contact-person-table.yaml"
+  - include:
+      file: "/db/changelog/0006-create-company-job-title-table.yaml"
+
+

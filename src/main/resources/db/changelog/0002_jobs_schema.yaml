@@ -1,0 +1,77 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: "Dmytro Hryshchenko"
+      changes:
+        - createTable:
+            tableName: jobs
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: company
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: notes
+                  type: TEXT
+              - column:
+                  name: title
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location
+                  type: varchar(150)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: link
+                  type: varchar(512)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: company_logo
+                  type: varchar(500)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: salary
+                  type: varchar(500)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: "NOW()"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: "NOW()"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_jobs_users
+                    references: users(id)
+                    onDelete: CASCADE
+        - addUniqueConstraint:
+            tableName: jobs
+            columnNames: link, user_id
+            constraintName: unique_link_user_id

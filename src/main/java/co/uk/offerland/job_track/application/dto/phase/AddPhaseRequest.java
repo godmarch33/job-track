@@ -1,0 +1,1 @@
+package co.uk.offerland.job_track.application.dto.phase;import java.time.Instant;import jakarta.validation.constraints.NotBlank;import jakarta.validation.constraints.NotNull;import lombok.Data;@Datapublic class AddPhaseRequest {    @NotBlank    private String phaseName;    private Instant date;    @NotBlank    private String status;}

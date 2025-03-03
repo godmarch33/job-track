@@ -1,0 +1,1 @@
+package co.uk.offerland.job_track.application.dto.user;import jakarta.validation.constraints.NotBlank;import lombok.Data;@Datapublic class ContactPersonRequest {    @NotBlank(message = "Contact first name can't be empty")    private String firstName;    private String lastName;    private String email;    private String phone;    private String linkedin;}

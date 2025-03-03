@@ -1,0 +1,1 @@
+package co.uk.offerland.job_track.application.dto;public record CompanyJobTitleDetailsRequest(String company, String jobTitle, String location) {}
