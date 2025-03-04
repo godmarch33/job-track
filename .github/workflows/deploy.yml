@@ -61,6 +61,11 @@ jobs:
           source: "app-image.tar"
           target: "/home/${{ secrets.SSH_USER }}/"
 
+
+      - name: List Directory Contents
+          run: |
+            ls -al    
+
       - name: Copy docker-compose.yaml to Server using SCP
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -68,7 +73,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
-          source: "docker/docker-compose.yaml"
+          source: "docker-compose-prod.yaml"
           target: "/home/${{ secrets.SSH_USER }}/job-track/"
 
       - name: Deploy on On-Prem Server via SSH
