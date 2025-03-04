@@ -27,7 +27,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build JAR File
-        run: ./gradlew build -x test
+        run: ./gradlew clean build -x test
+             ls -l build/libs
 
       - name: Build Docker Image
         run: |
