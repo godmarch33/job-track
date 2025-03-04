@@ -29,6 +29,16 @@ jobs:
       - name: Build JAR File
         run: ./gradlew clean build -x test
 
+      - name: Copy docker-compose.yaml to Server using SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: "5522"
+          source: "docker-compose-prod.yaml"
+          target: "/home/deploy/job-track/"
+
       - name: Build Docker Image
         run: |
           ls -al
@@ -60,22 +70,12 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           source: "app-image.tar"
-          target: "/home/${{ secrets.SSH_USER }}/"
+          target: "/home/deploy/"
 
 
       - name: List Directory Contents
         run: |
           ls -al    
-
-      - name: Copy docker-compose.yaml to Server using SCP
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: "5522"
-          source: "docker-compose-prod.yaml"
-          target: "/home/${{ secrets.SSH_USER }}/job-track/"
 
       - name: Deploy on On-Prem Server via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -86,6 +86,6 @@ jobs:
           port: "5522"
           script: |
             docker load -i /home/${{ secrets.SSH_USER }}/app-image.tar
-            cd /home/${{ secrets.SSH_USER }}/job-track
+            cd /home/deploy/job-track
             docker-compose down
             docker-compose up -d --build
