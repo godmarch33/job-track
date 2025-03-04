@@ -72,4 +72,8 @@ jobs:
             docker load -i /home/${{ secrets.SSH_USER }}/app-image.tar
             docker stop my-spring-app || true
             docker rm my-spring-app || true
-            docker run -d --name my-spring-app -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod  ${{ secrets.DOCKER_IMAGE_NAME }}
+            docker run -d --name my-spring-app -p 8080:8080 \
+                -e SPRING_PROFILES_ACTIVE=prod \
+                -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
+                -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+                ${{ secrets.DOCKER_IMAGE_NAME }}
