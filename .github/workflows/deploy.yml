@@ -23,19 +23,22 @@ jobs:
       - name: Set OpenAI API Key as Environment Variable
         run: echo "OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}" >> $GITHUB_ENV
 
+      - name: Grant execute permissions to Gradle Wrapper
+        run: chmod +x gradlew
+
       - name: Build JAR File
-        run: mvn clean package -DskipTests
+        run: ./gradlew build -x test
 
       - name: Build Docker Image
         run: |
           docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} .
-          docker save -o app-image.tar ${{ secrets.DOCKER_IMAGE_NAME }}
+          docker save -o ./app-image.tar ${{ secrets.DOCKER_IMAGE_NAME }}
 
       - name: Upload Docker Image as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: docker-image
-          path: app-image.tar
+          path: ./app-image.tar
 
   deploy:
     name: Deploy to On-Prem Server
