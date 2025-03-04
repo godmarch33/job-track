@@ -39,7 +39,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: deploy
+          username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           source: "docker-compose-prod.yaml"
@@ -72,7 +72,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: deploy
+          username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           source: "app-image.tar"
@@ -93,7 +93,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: deploy
+          username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           script: |
@@ -101,7 +101,7 @@ jobs:
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export DOCKER_IMAGE_NAME=${{ secrets.DOCKER_IMAGE_NAME }}
             export OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}
-            sudo -u deploy -H sh -c "
+            sudo -u root -H sh -c "
             docker load -i /home/deploy/job-track/app-image.tar
             cd /home/deploy/job-track
             docker-compose -f docker-compose-prod.yaml down
