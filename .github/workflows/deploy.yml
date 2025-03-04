@@ -61,6 +61,16 @@ jobs:
           source: "app-image.tar"
           target: "/home/${{ secrets.SSH_USER }}/"
 
+      - name: Copy docker-compose.yaml to Server using SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: "5522"
+          source: "docker-compose.yaml"
+          target: "/home/${{ secrets.SSH_USER }}/job-track/"
+
       - name: Deploy on On-Prem Server via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -70,10 +80,6 @@ jobs:
           port: "5522"
           script: |
             docker load -i /home/${{ secrets.SSH_USER }}/app-image.tar
-            docker stop my-spring-app || true
-            docker rm my-spring-app || true
-            docker run -d --name my-spring-app -p 8080:8080 \
-                -e SPRING_PROFILES_ACTIVE=prod \
-                -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
-                -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-                ${{ secrets.DOCKER_IMAGE_NAME }}
+            cd /home/${{ secrets.SSH_USER }}/job-track
+            docker-compose down
+            docker-compose up -d --build
