@@ -1,0 +1,70 @@
+name: Build and Deploy Job-Track App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set OpenAI API Key as Environment Variable
+          run: echo "OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Build JAR File
+        run: mvn clean package -DskipTests
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} .
+          docker save -o app-image.tar ${{ secrets.DOCKER_IMAGE_NAME }}
+
+      - name: Upload Docker Image as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: app-image.tar
+
+  deploy:
+    name: Deploy to On-Prem Server
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Docker Image Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+
+      - name: Copy Docker Image to Server via SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "app-image.tar"
+          target: "/home/${{ secrets.SSH_USER }}/"
+
+      - name: Deploy on On-Prem Server via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker load -i /home/${{ secrets.SSH_USER }}/app-image.tar
+            docker stop my-spring-app || true
+            docker rm my-spring-app || true
+            docker run -d --name my-spring-app -p 8080:8080 ${{ secrets.DOCKER_IMAGE_NAME }}

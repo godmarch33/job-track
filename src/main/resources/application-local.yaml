@@ -48,7 +48,7 @@ spring:
 
 open:
   api:
-    key: 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
+    key: ${OPEN_API_KEY}
 
 
 
