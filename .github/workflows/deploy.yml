@@ -43,7 +43,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           source: "docker-compose-prod.yaml"
-          target: "/home/deploy/job-track/"
+          target: "/home/deploy-agent/job-track/"
 
       - name: Build Docker Image
         run: |
@@ -68,7 +68,6 @@ jobs:
         with:
           name: docker-image
 
-
       - name: Copy Docker Image to Server using SCP
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -77,7 +76,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           source: "app-image.tar"
-          target: "/home/deploy/job-track"
+          target: "/home/deploy-agent/job-track"
 
       - name: List Directory Contents
         run: |
@@ -102,9 +101,7 @@ jobs:
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export DOCKER_IMAGE_NAME=${{ secrets.DOCKER_IMAGE_NAME }}
             export OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}
-            sudo -u root -H sh -c "
-            docker load -i /home/deploy/job-track/app-image.tar
-            cd /home/deploy/job-track
+            docker load -i /home/deploy-agent/job-track/app-image.tar
+            cd /home/deploy-agent/job-track
             docker-compose -f docker-compose-prod.yaml down
             docker-compose -f docker-compose-prod.yaml up -d
-            "
