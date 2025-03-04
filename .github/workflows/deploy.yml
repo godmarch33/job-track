@@ -99,7 +99,7 @@ jobs:
             export DB_USERNAME=${{ secrets.DB_USERNAME }}
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export DOCKER_IMAGE_NAME=${{ secrets.DOCKER_IMAGE_NAME }}
-            docker load -i /home/${{ secrets.SSH_USER }}/app-image.tar
+            docker load -i /home/deploy/job-track/app-image.tar
             cd /home/deploy/job-track
             docker-compose -f docker-compose-prod.yaml down
             docker-compose -f docker-compose-prod.yaml up -d
