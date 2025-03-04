@@ -78,10 +78,15 @@ jobs:
           source: "app-image.tar"
           target: "/home/deploy/job-track"
 
-
       - name: List Directory Contents
         run: |
-          ls -al    
+          ls -al
+
+      - name: Export Environment Variables
+        run: |
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE_NAME=${{ secrets.DOCKER_IMAGE_NAME }}" >> $GITHUB_ENV
 
       - name: Deploy on On-Prem Server via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -91,6 +96,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           script: |
+            export DB_USERNAME=${{ secrets.DB_USERNAME }}
+            export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            export DOCKER_IMAGE_NAME=${{ secrets.DOCKER_IMAGE_NAME }}
             docker load -i /home/${{ secrets.SSH_USER }}/app-image.tar
             cd /home/deploy/job-track
             docker-compose -f docker-compose-prod.yaml down
