@@ -19,7 +19,7 @@ services:
       - backend
 
   job-track:
-    image: ${DOCKER_IMAGE_NAME}  # Referencing the environment variable
+    image: ${DOCKER_IMAGE_NAME}
     container_name: job-track-app
     depends_on:
       - postgres

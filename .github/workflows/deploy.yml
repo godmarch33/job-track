@@ -100,7 +100,7 @@ jobs:
             export DB_USERNAME=${{ secrets.DB_USERNAME }}
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export DOCKER_IMAGE_NAME=${{ secrets.DOCKER_IMAGE_NAME }}
-            export "OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}" >> $GITHUB_ENV
+            export OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}
             docker load -i /home/deploy/job-track/app-image.tar
             cd /home/deploy/job-track
             docker-compose -f docker-compose-prod.yaml down
