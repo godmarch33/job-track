@@ -57,6 +57,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: "5522"
           source: "app-image.tar"
           target: "/home/${{ secrets.SSH_USER }}/"
 
