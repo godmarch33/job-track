@@ -21,7 +21,7 @@ jobs:
           java-version: '17'
 
       - name: Set OpenAI API Key as Environment Variable
-          run: echo "OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}" >> $GITHUB_ENV
+        run: echo "OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}" >> $GITHUB_ENV
 
       - name: Build JAR File
         run: mvn clean package -DskipTests
