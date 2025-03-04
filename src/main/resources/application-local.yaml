@@ -12,7 +12,12 @@ spring:
     compose:
       enabled: true
       file: docker-compose.yaml
+  logging:
+    level:
+      org:
+        springframework:
+          cache: DEBUG
 
 open:
   api:
-    key: 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
+    key: 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
