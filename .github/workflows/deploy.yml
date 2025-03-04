@@ -63,8 +63,8 @@ jobs:
 
 
       - name: List Directory Contents
-          run: |
-            ls -al    
+        run: |
+          ls -al    
 
       - name: Copy docker-compose.yaml to Server using SCP
         uses: appleboy/scp-action@v0.1.4
