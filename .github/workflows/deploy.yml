@@ -68,7 +68,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
-          source: "docker-compose.yaml"
+          source: "docker/docker-compose.yaml"
           target: "/home/${{ secrets.SSH_USER }}/job-track/"
 
       - name: Deploy on On-Prem Server via SSH
