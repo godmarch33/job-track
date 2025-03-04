@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class CompanyVisaSponsorshipEntityConverter {
 
     public CompanyVisaSponsorshipDto toDto(CompanyVisaSponsorshipEntity companyVisaSponsorship) {
-        CompanyVisaSponsorshipDto companyVisaSponsorshipDto = new CompanyVisaSponsorshipDto(
+        return new CompanyVisaSponsorshipDto(
                 companyVisaSponsorship.getCompany(),
                 companyVisaSponsorship.getLocation(),
                 "",
@@ -16,7 +16,5 @@ public class CompanyVisaSponsorshipEntityConverter {
                 "",
                 ""
         );
-
-        return companyVisaSponsorshipDto;
     }
 }
