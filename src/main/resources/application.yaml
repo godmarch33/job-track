@@ -12,10 +12,10 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
-  r2dbc:
-    pool:
-      initial-size: 10
-      max-size: 20
+#  r2dbc:
+#    pool:
+#      initial-size: 10
+#      max-size: 20
   jpa:
     properties:
       dialect: org.hibernate.dialect.PostgreSQLDialect

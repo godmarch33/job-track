@@ -1,17 +1,20 @@
 spring:
-  r2dbc:
-    url: r2dbc:postgresql://postgres:5432/job-track
-    username: admin
-    password: password
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://postgres:5432/job-track
     username: admin
     password: password
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/job-track
+      database: job-track
+      username: admin
+      password: password
 
   docker:
     compose:
-      enabled: false
+      enabled: true
+      file: docker-compose.yaml
 
 open:
   api:
