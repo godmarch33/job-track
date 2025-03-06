@@ -1,1 +1,1 @@
-package co.uk.offerland.job_track.infrastructure.exception;import org.springframework.http.HttpStatus;import org.springframework.web.bind.annotation.ResponseStatus;@ResponseStatus(HttpStatus.BAD_REQUEST)public class InvalidPhaseException extends RuntimeException {    public InvalidPhaseException(String message) {        super(message);    }}
+package co.uk.offerland.job_track.infrastructure.exception;public class InvalidPhaseException extends RuntimeException {    public InvalidPhaseException(String message) {        super(message);    }}
