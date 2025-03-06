@@ -13,6 +13,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
                     unique: true
+                  defaultValue: "gen_random_uuid()"
               - column:
                   name: source
                   type: varchar(255)
