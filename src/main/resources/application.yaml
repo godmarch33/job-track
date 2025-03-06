@@ -34,3 +34,6 @@ spring:
     async:
       request-timeout: 60000
 
+#  webflux:
+#    problemdetails:
+#      enabled: true

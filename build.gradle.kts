@@ -29,7 +29,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE")
     runtimeOnly("io.r2dbc:r2dbc-pool:1.0.0.RELEASE")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+//    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")

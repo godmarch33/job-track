@@ -1,1 +1,1 @@
-package co.uk.offerland.job_track.infrastructure.exception;public class UserNotFoundException extends RuntimeException {    public UserNotFoundException(String message) {        super(message);    }}
+package co.uk.offerland.job_track.infrastructure.exception;import lombok.Getter;import org.springframework.http.HttpStatus;@Getterpublic class UserNotFoundException extends RuntimeException {    private final HttpStatus httpStatus = HttpStatus.NOT_FOUND;    public UserNotFoundException(String message) {        super(message);    }}
