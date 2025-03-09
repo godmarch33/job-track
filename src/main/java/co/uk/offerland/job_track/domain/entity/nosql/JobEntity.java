@@ -4,8 +4,8 @@ import co.uk.offerland.job_track.domain.entity.ContactPersonEntity;
 import co.uk.offerland.job_track.domain.entity.JobPhase;
 import co.uk.offerland.job_track.domain.entity.JobPhaseStatus;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Data
 public class JobEntity {
 
@@ -23,7 +24,7 @@ public class JobEntity {
     private String company;
     private String title;
     private String location;
-    private String link;
+    private String jobUrl;
     private String companyLogo;
     private String notes;
     @Field("uses_phase")
@@ -32,15 +33,15 @@ public class JobEntity {
     private List<String> availablePhases = new ArrayList<>();
     private ContactPersonEntity contactPerson;
     private String description;
-    private String salary;
+    private String jobSalary;
+    private String desiredSalary;
     private Instant createdAt;
     private Instant updatedAt;
 
     public JobEntity() {
-        initializeAvailablePhases();
     }
 
-    private void initializeAvailablePhases() {
+    public void initializeAvailablePhases() {
         this.availablePhases.addAll(Arrays.stream(JobPhase.values())
                 .map(JobPhase::getLabel)
                 .toList());
@@ -53,13 +54,16 @@ public class JobEntity {
                 .orElseThrow(() -> new IllegalStateException("incorrect state phases entity"));
     }
 
-    public void removeAvailablePhase(String phaseName) {
-        availablePhases.remove(phaseName);
-    }
-
     public void addPhase(JobPhaseEntity phase) {
         this.phases.add(phase);
         removeAvailablePhase(phase.getPhaseName());
+    }
+
+    public void removeAvailablePhase(String phaseName) {
+        log.info("removing available phase {}", phaseName);
+        log.info("before available phases {}", availablePhases);
+        availablePhases.remove(phaseName);
+        log.info("after available phases {}", availablePhases);
     }
 
     public JobPhaseEntity nextPhase() {
