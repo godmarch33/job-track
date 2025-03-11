@@ -41,7 +41,7 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: password
       OPEN_API_KEY: ${OPEN_API_KEY}
-      SPRING_DATA_MONGODB_URI: mongodb://admin:password@localhost:27017/job-track?authSource=admin
+      SPRING_DATA_MONGODB_URI: mongodb://admin:password@mongodb:27017/job-track?authSource=admin
     ports:
       - "8080:8080"
     networks:
