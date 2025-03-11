@@ -24,4 +24,20 @@ public class InterviewStat {
         dailyProgress.updateCounter();
         return ++this.savedCount;
     }
+
+    public void increaseApplied() {
+        this.appliedCount++;
+    }
+
+    public void increaseInterview() {
+        this.interviewCount++;
+    }
+
+    public void increaseReject() {
+        this.rejectedCount++;
+    }
+
+    public void increaseAccepted() {
+        this.acceptedCount++;
+    }
 }

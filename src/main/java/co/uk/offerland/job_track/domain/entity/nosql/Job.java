@@ -72,6 +72,6 @@ public class Job {
         return phases.stream()
                 .filter(e -> e.getOrderIndex() == orderIndex + 1)
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("No next phase found"));
+                .orElse(null);
     }
 }
