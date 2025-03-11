@@ -19,7 +19,9 @@ spring:
       org:
         springframework:
           cache: DEBUG
-
+search:
+  service:
+    url: http://62.171.139.86:8001
 open:
   api:
     key: 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

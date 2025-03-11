@@ -15,6 +15,9 @@ spring:
     compose:
       enabled: true
       file: docker-compose.yaml
+search:
+  service:
+    url: http://localhost:8001
 
 open:
   api:

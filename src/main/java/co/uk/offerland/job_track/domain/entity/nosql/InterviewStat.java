@@ -3,7 +3,7 @@ package co.uk.offerland.job_track.domain.entity.nosql;
 import lombok.Data;
 
 @Data
-public class InterviewStatEntity {
+public class InterviewStat {
     private int savedCount;
     private int appliedCount;
     private int interviewCount;
@@ -11,7 +11,7 @@ public class InterviewStatEntity {
     private int acceptedCount;
     private DailyProgressEntity dailyProgress;
 
-    public InterviewStatEntity() {
+    public InterviewStat() {
         savedCount = 0;
         appliedCount = 0;
         interviewCount = 0;

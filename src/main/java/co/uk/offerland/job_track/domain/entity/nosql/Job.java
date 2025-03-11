@@ -1,8 +1,8 @@
 package co.uk.offerland.job_track.domain.entity.nosql;
 
-import co.uk.offerland.job_track.domain.entity.ContactPersonEntity;
+import co.uk.offerland.job_track.domain.entity.ContactPerson;
 import co.uk.offerland.job_track.domain.entity.JobPhase;
-import co.uk.offerland.job_track.domain.entity.JobPhaseStatus;
+import co.uk.offerland.job_track.domain.entity.PhaseStatus;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Slf4j
 @Data
-public class JobEntity {
+public class Job {
 
     @Field("jobId")
     @Indexed(unique = true)
@@ -28,17 +28,17 @@ public class JobEntity {
     private String companyLogo;
     private String notes;
     @Field("uses_phase")
-    private List<JobPhaseEntity> phases = new ArrayList<>();
+    private List<Phase> phases = new ArrayList<>();
     @Field("available_phase")
     private List<String> availablePhases = new ArrayList<>();
-    private ContactPersonEntity contactPerson;
+    private ContactPerson contactPerson;
     private String description;
     private String jobSalary;
     private String desiredSalary;
     private Instant createdAt;
     private Instant updatedAt;
 
-    public JobEntity() {
+    public Job() {
     }
 
     public void initializeAvailablePhases() {
@@ -47,14 +47,14 @@ public class JobEntity {
                 .toList());
     }
 
-    public JobPhaseEntity currentPhase() {
+    public Phase currentPhase() {
         return phases.stream()
-                .filter(e -> e.getStatus() == JobPhaseStatus.IN_PROGRESS)
+                .filter(e -> e.getStatus() == PhaseStatus.IN_PROGRESS)
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("incorrect state phases entity"));
     }
 
-    public void addPhase(JobPhaseEntity phase) {
+    public void addPhase(Phase phase) {
         this.phases.add(phase);
         removeAvailablePhase(phase.getPhaseName());
     }
@@ -66,7 +66,7 @@ public class JobEntity {
         log.info("after available phases {}", availablePhases);
     }
 
-    public JobPhaseEntity nextPhase() {
+    public Phase nextPhase() {
         int orderIndex = currentPhase().getOrderIndex();
 
         return phases.stream()
