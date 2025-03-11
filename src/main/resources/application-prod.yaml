@@ -6,7 +6,7 @@ spring:
     password: password
   data:
     mongodb:
-      uri: mongodb://mongodb:27017/job-track
+      uri: mongodb://localhost:27017/job-track
       database: job-track
       username: admin
       password: password
