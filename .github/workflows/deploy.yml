@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
-          source: "docker-compose-prod.yaml"
+          source: "docker-compose.yaml"
           target: "/home/deploy/job-track/"
 
       - name: Build Docker Image
@@ -103,5 +103,5 @@ jobs:
             export OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}
             docker load -i /home/deploy/job-track/app-image.tar
             cd /home/deploy/job-track
-            docker-compose -f docker-compose-prod.yaml down
-            docker-compose -f docker-compose-prod.yaml up -d
+            docker-compose -f docker-compose.yaml down
+            docker-compose -f docker-compose.yaml up -d
