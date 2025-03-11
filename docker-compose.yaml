@@ -27,9 +27,26 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: job-track
-
     volumes:
       - mongodb_data:/data/db
+  job-track:
+    image: ${DOCKER_IMAGE_NAME}
+    container_name: job-track-app
+    depends_on:
+      - postgres
+      - mongodb
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/job-track
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: password
+      OPEN_API_KEY: ${OPEN_API_KEY}
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    volumes:
+      - /home/deploy/files:/app/files
 
 volumes:
   postgres_data:
