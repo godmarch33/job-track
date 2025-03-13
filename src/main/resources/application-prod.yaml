@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/job-track
+      uri: mongodb://mongodb:27017/job-track
       database: job-track
       username: admin
       password: VerySecretPassword1986
