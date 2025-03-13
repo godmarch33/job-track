@@ -99,13 +99,18 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           script: |
-            export MONGO_USER=${{ secrets.MONGO_USER }}
-            export MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}
-            export MONGO_DB=${{ secrets.MONGO_DB }}
-            export DOCKER_IMAGE_NAME=${{ secrets.DOCKER_IMAGE_NAME }}
-            export OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}
+            set -e
+            export MONGO_USER="${{ secrets.MONGO_USER }}"
+            export MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}"
+            export MONGO_DB="${{ secrets.MONGO_DB }}"
+            export DOCKER_IMAGE_NAME="${{ secrets.DOCKER_IMAGE_NAME }}"
+            export OPEN_API_KEY="${{ secrets.OPEN_API_KEY }}"
+            
+            docker rmi -f "$DOCKER_IMAGE_NAME" || true
             docker load -i /home/deploy/job-track/app-image.tar
+            
             cd /home/deploy/job-track
+            
             docker compose -f docker-compose-prod.yaml down --remove-orphans
-            docker network rm ***_default || true
+            
             docker compose -f docker-compose-prod.yaml up -d --build
