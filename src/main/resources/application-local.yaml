@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: local
   data:
     mongodb:
       uri: SPRING_DATA_MONGODB_URI=mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track?authSource=admin

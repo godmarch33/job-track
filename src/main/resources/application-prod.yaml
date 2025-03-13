@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: prod
   data:
     mongodb:
       uri: mongodb://mongodb:27017/job-track
