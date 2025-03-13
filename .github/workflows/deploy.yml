@@ -108,4 +108,4 @@ jobs:
             cd /home/deploy/job-track
             docker compose -f docker-compose-prod.yaml down --remove-orphans
             docker network rm ***_default || true
-            docker compose -f docker-compose-prod.yaml up -d --build --no-pull
+            docker compose -f docker-compose-prod.yaml up -d --build
