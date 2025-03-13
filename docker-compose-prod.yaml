@@ -26,6 +26,7 @@ services:
       - "8080:8080"
     volumes:
       - /home/deploy/data:/app/files
+    pull_policy: never
 
 volumes:
   mongo_data:
