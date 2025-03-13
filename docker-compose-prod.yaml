@@ -19,7 +19,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      SPRING_PROFILES_ACTIVE: local
+      SPRING_PROFILES_ACTIVE: prod
       OPEN_API_KEY: ${OPEN_API_KEY}
       SPRING_DATA_MONGODB_URI: mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track
     ports:
