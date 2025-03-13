@@ -1,0 +1,33 @@
+services:
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: VerySecretPassword1986
+      MONGO_INITDB_DATABASE: job-track
+    volumes:
+      - mongo_data:/data/db
+
+  job-track-original:
+    image: jobtrack:latest
+    container_name: job-track-original
+    depends_on:
+      - mongodb
+    environment:
+        - SPRING_PROFILES_ACTIVE=stg
+        - OPEN_API_KEY=${OPEN_API_KEY}
+        - SPRING_DATA_MONGODB_URI=mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track?authSource=admin
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/deploy/data:/app/files
+    pull_policy: never
+
+volumes:
+  mongo_data:
+    driver: local

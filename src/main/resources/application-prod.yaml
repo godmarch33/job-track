@@ -1,10 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://mongodb:27017/job-track
-      database: job-track
-      username: admin
-      password: VerySecretPassword1986
+      uri: mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track
 
 search:
   service:

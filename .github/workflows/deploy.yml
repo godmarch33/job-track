@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
-          source: "docker-compose-prod.yaml"
+          source: "docker-compose-stg.yaml"
           target: "/home/deploy/job-track/"
 
       - name: Build Docker Image
@@ -117,6 +117,6 @@ jobs:
             
             cd /home/deploy/job-track
             
-            docker compose -f docker-compose-prod.yaml down --remove-orphans
+            docker compose -f docker-compose-stg.yaml down --remove-orphans
             
-            docker compose -f docker-compose-prod.yaml up -d --build
+            docker compose -f docker-compose-stg.yaml up -d --build
