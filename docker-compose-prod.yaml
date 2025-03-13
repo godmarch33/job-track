@@ -13,9 +13,9 @@ services:
     volumes:
       - mongo_data:/data/db
 
-  job-track-app:
-    image: my-spring-app:latest
-    container_name: job-track-app
+  job-track-original:
+    image: ${DOCKER_IMAGE_NAME}:latest
+    container_name: job-track-original
     depends_on:
       - mongodb
     environment:
