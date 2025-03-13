@@ -1,23 +1,14 @@
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres:5432/job-track
-    username: admin
-    password: password
   data:
     mongodb:
       uri: mongodb://localhost:27017/job-track
       database: job-track
       username: admin
-      password: password
+      password: VerySecretPassword1986
 
-  docker:
-    compose:
-      enabled: true
-      file: docker-compose-prod.yaml
 search:
   service:
-    url: http://localhost:8001
+    url: http://62.171.139.86:8001
 
 open:
   api:

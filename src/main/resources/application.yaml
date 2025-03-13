@@ -9,31 +9,9 @@ spring:
       indent-output: true
   main:
     allow-circular-references: true
-  batch:
-    jdbc:
-      initialize-schema: always
-#  r2dbc:
-#    pool:
-#      initial-size: 10
-#      max-size: 20
-  jpa:
-    properties:
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: none
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
-        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-    open-in-view: false
-  liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
   threads:
     virtual:
       enabled: true
   mvc:
     async:
       request-timeout: 60000
-
-#  webflux:
-#    problemdetails:
-#      enabled: true
