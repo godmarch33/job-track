@@ -25,7 +25,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /home/deploy/files:/app/files
+      - /home/deploy/data:/app/files
 
 volumes:
   mongo_data:
