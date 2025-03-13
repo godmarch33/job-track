@@ -35,14 +35,14 @@ jobs:
       - name: Build JAR File
         run: ./gradlew clean build -x test
 
-      - name: Copy docker-compose.yaml to Server using SCP
+      - name: Copy docker-compose-prod.yaml to Server using SCP
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
-          source: "docker-compose.yaml"
+          source: "docker-compose-prod.yaml"
           target: "/home/deploy/job-track/"
 
       - name: Build Docker Image
@@ -103,5 +103,5 @@ jobs:
             export OPEN_API_KEY=${{ secrets.OPEN_API_KEY }}
             docker load -i /home/deploy/job-track/app-image.tar
             cd /home/deploy/job-track
-            docker-compose -f docker-compose.yaml down
-            docker-compose -f docker-compose.yaml up -d
+            docker-compose -f docker-compose-prod.yaml down
+            docker-compose -f docker-compose.yaml-prod up -d
