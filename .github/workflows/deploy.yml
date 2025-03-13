@@ -104,4 +104,4 @@ jobs:
             docker load -i /home/deploy/job-track/app-image.tar
             cd /home/deploy/job-track
             docker compose -f docker-compose-prod.yaml down
-            docker compose -f docker-compose.yaml-prod up -d
+            docker compose -f docker-compose-prod.yaml up -d
