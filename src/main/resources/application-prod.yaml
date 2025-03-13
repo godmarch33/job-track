@@ -8,7 +8,7 @@ spring:
 
 search:
   service:
-    url: http://62.171.139.86:8001
+    url: ${SEARCH_SERVICE_URL}
 
 open:
   api:
