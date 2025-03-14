@@ -18,7 +18,7 @@ public class SearchVisaService {
     private String searchServiceUrl;
 
     public SearchVisaService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://62.171.139.86:8001").build();
+        this.webClient = webClientBuilder.baseUrl(searchServiceUrl).build();
     }
 
     public Mono<SearchVisaResponse> search(String query) {
