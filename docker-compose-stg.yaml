@@ -20,7 +20,7 @@ services:
       - "8001:8001"
     volumes:
       - ./faiss_data:/app/faiss_data
-      - ../faiss/app
+      - /home/deploy/faiss/app:/app
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
