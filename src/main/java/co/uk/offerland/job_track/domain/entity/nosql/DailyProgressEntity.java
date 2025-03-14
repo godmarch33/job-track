@@ -20,7 +20,7 @@ public class DailyProgressEntity {
         if (!today.isEqual(lastUpdatedDate)) {
             currentCVAmount = 1;
             lastUpdatedDate = today;
-        } else if (currentCVAmount < MAX_DAILY_CV) {
+        } else {
             currentCVAmount++;
         }
         log.info("Updated CV Count:[{}] ", currentCVAmount);
