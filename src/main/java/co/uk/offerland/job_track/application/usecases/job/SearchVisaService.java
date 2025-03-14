@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -14,10 +13,7 @@ public class SearchVisaService {
 
     private final WebClient webClient;
 
-    @Value("${search.service.url}")
-    private String searchServiceUrl;
-
-    public SearchVisaService(WebClient.Builder webClientBuilder) {
+    public SearchVisaService(WebClient.Builder webClientBuilder, @Value("${search.service.url}") String searchServiceUrl) {
         this.webClient = webClientBuilder.baseUrl(searchServiceUrl).build();
     }
 
