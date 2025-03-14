@@ -13,6 +13,18 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  faiss-api:
+    image: faiss-faiss-api:latest
+    container_name: faiss-api
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./faiss_data:/app/faiss_data
+      - ../faiss/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: always
+
   job-track-original:
     image: jobtrack:latest
     container_name: job-track-original
@@ -20,6 +32,7 @@ services:
       - mongodb
     environment:
         - SPRING_PROFILES_ACTIVE=stg
+        - SEARCH_SERVICE_URL=${SEARCH_SERVICE_URL}
         - OPEN_API_KEY=${OPEN_API_KEY}
         - SPRING_DATA_MONGODB_URI=mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track?authSource=admin
     ports:
