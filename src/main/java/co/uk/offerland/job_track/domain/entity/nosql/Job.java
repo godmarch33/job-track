@@ -35,6 +35,8 @@ public class Job {
     private String description;
     private String jobSalary;
     private String desiredSalary;
+    private String currency;
+    private String addType;
     private Instant createdAt;
     private Instant updatedAt;
 

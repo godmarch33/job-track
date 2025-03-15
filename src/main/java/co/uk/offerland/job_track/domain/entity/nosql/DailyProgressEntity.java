@@ -25,4 +25,15 @@ public class DailyProgressEntity {
         }
         log.info("Updated CV Count:[{}] ", currentCVAmount);
     }
+
+    public void releaseNextDayCounter() {
+        LocalDate today = LocalDate.now();
+
+        if (!today.isEqual(lastUpdatedDate)) {
+            currentCVAmount = 0;
+            lastUpdatedDate = today;
+            log.info("Reset next day counder [{}] ", currentCVAmount);
+        }
+
+    }
 }

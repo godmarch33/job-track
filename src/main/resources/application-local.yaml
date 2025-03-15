@@ -5,7 +5,7 @@ spring:
   docker:
     compose:
       enabled: true
-      file: docker-compose.yaml
+      file: docker-compose-local.yaml
   logging:
     level:
       org:
