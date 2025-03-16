@@ -1,1 +1,1 @@
-package co.uk.offerland.job_track.infrastructure.exception;public class JobAlreadyExistsException extends RuntimeException {    public JobAlreadyExistsException(String msg) {        super(msg);    }}
+package co.uk.offerland.job_track.infrastructure.exception;public class JobAlreadyExistsException extends RuntimeException {    public JobAlreadyExistsException(String userId, String jobUrl) {        super(String.format("Job entity already exists, link: [%s], userId: [%s]", jobUrl, userId));    }}

@@ -1,1 +1,1 @@
-package co.uk.offerland.job_track.domain.entity;import lombok.Data;@Datapublic class ContactPerson {    private String firstName;    private String lastName;    private String phone;    private String email;    private String linkedin;}
+package co.uk.offerland.job_track.domain.entity;import lombok.Data;@Datapublic class ContactPerson {    private String fullName;    private String phone;    private String email;    private String linkedin;}
