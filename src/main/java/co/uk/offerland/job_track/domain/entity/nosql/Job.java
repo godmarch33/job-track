@@ -26,7 +26,7 @@ public class Job {
     private String location;
     private String jobUrl;
     private String companyLogo;
-    private String notes;
+    private InterviewNote notes;
     @Field("uses_phase")
     private List<Phase> phases = new ArrayList<>();
     @Field("available_phase")

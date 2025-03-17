@@ -1,1 +1,1 @@
-package co.uk.offerland.job_track.application.dto.user;import lombok.Data;@Datapublic class ContactPersonResponse {    private String fullName;    private String email;    private String phone;    private String linkedin;}
+package co.uk.offerland.job_track.application.dto.user;import lombok.Data;@Datapublic class ContactPersonResponse {    private String fullName;    private String email;    private String phone;    private String linkedin;    private String communicationChannel;}
