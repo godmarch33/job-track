@@ -12,7 +12,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.temporal.TemporalAccessor;
 import java.util.UUID;
 
 
@@ -24,7 +23,7 @@ public interface PhaseHandler {
 
     void handle(User user, Phase currentPhase, Phase nextPhase);
 
-    static void handlePhaseActionRequired(Phase currentPhase) {
+    static void moveToWaitResponse(Phase currentPhase) {
         currentPhase.setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
         currentPhase.setLastUpdatedDate(Instant.now());
     }

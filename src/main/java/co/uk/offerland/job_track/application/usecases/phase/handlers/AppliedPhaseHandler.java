@@ -20,13 +20,11 @@ public class AppliedPhaseHandler implements PhaseHandler {
 
     @Override
     public void handle(User user, Phase currentPhase, Phase nextPhase) {
-        if (PhaseSubStatus.ACTION_REQUIRED == currentPhase.getSubStatus()) {
-            handlePhaseActionRequired(currentPhase);
-
+        if (PhaseSubStatus.NONE == currentPhase.getSubStatus()) {
+            moveToWaitResponse(currentPhase);
             logChangePhase(currentPhase.getPhaseName(), currentPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), PhaseSubStatus.WAIT_RESPONSE.getLabel(), currentPhase.getJobPhaseId());
-        } else if (PhaseSubStatus.ACTION_REQUIRED != currentPhase.getSubStatus()) {
+        } else if (PhaseSubStatus.WAIT_RESPONSE == currentPhase.getSubStatus()) {
             handlePhaseWaitResponse(currentPhase, nextPhase);
-            user.getInterviewStat().increaseApplied();
             logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), PhaseSubStatus.WAIT_RESPONSE.getLabel(), nextPhase.getSubStatus().getLabel(), currentPhase.getJobPhaseId());
         }
     }

@@ -1,5 +1,6 @@
 package co.uk.offerland.job_track.application.usecases.phase.handlers;
 
+import co.uk.offerland.job_track.domain.entity.JobPhase;
 import co.uk.offerland.job_track.domain.entity.PhaseStatus;
 import co.uk.offerland.job_track.domain.entity.PhaseSubStatus;
 import co.uk.offerland.job_track.domain.entity.nosql.Phase;
@@ -9,15 +10,15 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
-import static co.uk.offerland.job_track.domain.entity.JobPhase.OFFER_STATUS;
+import static co.uk.offerland.job_track.application.usecases.phase.handlers.PhaseHandler.*;
 
 @Slf4j
 @Service
-public class OfferStatusPhaseHandler implements PhaseHandler {
+public class SavePhaseHandler implements PhaseHandler {
 
     @Override
     public boolean isApplicable(Phase phase) {
-        return OFFER_STATUS.getLabel().equals(phase.getPhaseName());
+        return JobPhase.SAVED.getLabel().equals(phase.getPhaseName());
     }
 
     @Override
@@ -25,6 +26,9 @@ public class OfferStatusPhaseHandler implements PhaseHandler {
         currentPhase.setStatus(PhaseStatus.COMPLETED);
         currentPhase.setSubStatus(PhaseSubStatus.DONE);
         currentPhase.setLastUpdatedDate(Instant.now());
+        nextPhase.setStatus(PhaseStatus.IN_PROGRESS);
+        nextPhase.setLastUpdatedDate(Instant.now());
+        nextPhase.setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
+        logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), nextPhase.getSubStatus().getLabel(), currentPhase.getJobPhaseId());
     }
-
 }

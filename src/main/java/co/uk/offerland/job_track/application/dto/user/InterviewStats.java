@@ -7,10 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class InterviewStats {
 
-    private int savedCount;
-    private int appliedCount;
-    private int interviewCount;
-    private int rejectedCount;
-    private int acceptedCount;
-    private DailyProgress dailyProgress;
+  private DailyProgress dailyProgress;
 }

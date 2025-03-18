@@ -4,36 +4,35 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Slf4j
 @Data
 public class DailyProgressEntity {
 
     public static final int MAX_DAILY_CV = 10;
-    private int currentCVAmount = 0;
+    private int numberApplyCv = 0;
     private LocalDate lastUpdatedDate = LocalDate.now();
 
-    public void updateCounter() {
+    public int updateCounter() {
         LocalDate today = LocalDate.now();
 
         if (!today.isEqual(lastUpdatedDate)) {
-            currentCVAmount = 1;
+            numberApplyCv = 1;
             lastUpdatedDate = today;
         } else {
-            currentCVAmount++;
+            numberApplyCv++;
         }
-        log.info("Updated CV Count:[{}] ", currentCVAmount);
+        log.info("Updated CV Count:[{}] ", numberApplyCv);
+        return numberApplyCv;
     }
 
     public void releaseNextDayCounter() {
         LocalDate today = LocalDate.now();
 
         if (!today.isEqual(lastUpdatedDate)) {
-            currentCVAmount = 0;
+            numberApplyCv = 0;
             lastUpdatedDate = today;
-            log.info("Reset next day counder [{}] ", currentCVAmount);
+            log.info("Reset next day counter: [{}] ", numberApplyCv);
         }
-
     }
 }

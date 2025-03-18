@@ -34,6 +34,8 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine")
     implementation("org.apache.commons:commons-lang3:3.14.0")
     implementation("io.projectreactor:reactor-tools")
+    implementation("org.jsoup:jsoup:1.16.1")
+    implementation("org.json:json:20231013")
     implementation("io.projectreactor.tools:blockhound:1.0.11.RELEASE")
     implementation("dev.langchain4j:langchain4j:1.0.0-beta1")
     implementation("dev.langchain4j:langchain4j-open-ai:1.0.0-beta1")

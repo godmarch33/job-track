@@ -20,11 +20,10 @@ public class FinalRoundPhaseHandler implements PhaseHandler {
         log.info("HANDLE FINAL ROUND:{}", currentPhase.getSubStatus());
         log.info("HANDLE FINAL ROUND IS:{}", PhaseSubStatus.ACTION_REQUIRED == currentPhase.getSubStatus());
         if (PhaseSubStatus.ACTION_REQUIRED == currentPhase.getSubStatus()) {
-            handlePhaseActionRequired(currentPhase);
+            moveToWaitResponse(currentPhase);
             logChangePhase(currentPhase.getPhaseName(), currentPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), PhaseSubStatus.WAIT_RESPONSE.getLabel(), currentPhase.getJobPhaseId());
         } else if (PhaseSubStatus.ACTION_REQUIRED != currentPhase.getSubStatus()) {
             handlePhaseWaitResponse(currentPhase, nextPhase);
-            user.getInterviewStat().increaseInterview();
             logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), PhaseSubStatus.WAIT_RESPONSE.getLabel(), nextPhase.getSubStatus().getLabel(), currentPhase.getJobPhaseId());
         }
     }
