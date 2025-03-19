@@ -1,7 +1,5 @@
 package co.uk.offerland.job_track.domain.entity.nosql;
 
-import co.uk.offerland.job_track.domain.entity.PhaseStatus;
-import co.uk.offerland.job_track.domain.entity.PhaseSubStatus;
 import lombok.Data;
 
 import java.time.Instant;
@@ -14,7 +12,8 @@ public class Phase {
     private String phaseName;
     private Instant lastUpdatedDate;
     private Instant interviewScheduleTime;
-    private PhaseStatus status;
+
+    private PhaseStatusInfoEntity statusInfoEntity;
     private int orderIndex;
-    private PhaseSubStatus subStatus;
+
 }

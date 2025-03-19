@@ -17,12 +17,12 @@ public class ThirdRoundPhaseHandler implements PhaseHandler {
 
     @Override
     public void handle(User user, Phase currentPhase, Phase nextPhase) {
-        if (PhaseSubStatus.ACTION_REQUIRED == currentPhase.getSubStatus()) {
+        if (PhaseSubStatus.ACTION_REQUIRED == currentPhase.getStatusInfoEntity().getSubStatus()) {
             moveToWaitResponse(currentPhase);
             logChangePhase(currentPhase.getPhaseName(), currentPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), PhaseSubStatus.WAIT_RESPONSE.getLabel(), currentPhase.getJobPhaseId());
-        } else if (PhaseSubStatus.ACTION_REQUIRED != currentPhase.getSubStatus()) {
+        } else {
             handlePhaseWaitResponse(currentPhase, nextPhase);
-            logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), PhaseSubStatus.WAIT_RESPONSE.getLabel(), nextPhase.getSubStatus().getLabel(), currentPhase.getJobPhaseId());
+            logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), PhaseSubStatus.WAIT_RESPONSE.getLabel(), nextPhase.getStatusInfoEntity().getSubStatus().getLabel(), currentPhase.getJobPhaseId());
         }
     }
 

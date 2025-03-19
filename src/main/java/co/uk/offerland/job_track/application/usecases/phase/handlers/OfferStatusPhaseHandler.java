@@ -22,8 +22,8 @@ public class OfferStatusPhaseHandler implements PhaseHandler {
 
     @Override
     public void handle(User user, Phase currentPhase, Phase nextPhase) {
-        currentPhase.setStatus(PhaseStatus.COMPLETED);
-        currentPhase.setSubStatus(PhaseSubStatus.DONE);
+        currentPhase.getStatusInfoEntity().setStatus(PhaseStatus.COMPLETED);
+        currentPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.DONE);
         currentPhase.setLastUpdatedDate(Instant.now());
     }
 

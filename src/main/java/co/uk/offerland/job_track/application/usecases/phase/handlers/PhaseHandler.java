@@ -24,28 +24,28 @@ public interface PhaseHandler {
     void handle(User user, Phase currentPhase, Phase nextPhase);
 
     static void moveToWaitResponse(Phase currentPhase) {
-        currentPhase.setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
+        currentPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
         currentPhase.setLastUpdatedDate(Instant.now());
     }
 
     static void handlePhaseWaitResponse(Phase currentPhase, Phase nextPhase) {
-        currentPhase.setStatus(PhaseStatus.COMPLETED);
-        currentPhase.setSubStatus(PhaseSubStatus.DONE);
+        currentPhase.getStatusInfoEntity().setStatus(PhaseStatus.COMPLETED);
+        currentPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.DONE);
         currentPhase.setLastUpdatedDate(Instant.now());
-        nextPhase.setStatus(PhaseStatus.IN_PROGRESS);
+        nextPhase.getStatusInfoEntity().setStatus(PhaseStatus.IN_PROGRESS);
         nextPhase.setLastUpdatedDate(Instant.now());
         if (nextPhase.getInterviewScheduleTime() == null) {
-            nextPhase.setSubStatus(PhaseSubStatus.ACTION_REQUIRED);
+            nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.ACTION_REQUIRED);
             nextPhase.setInterviewScheduleTime(Instant.now());
         }
         if (nextPhase.getInterviewScheduleTime().isBefore(Instant.now())) {
-            nextPhase.setSubStatus(PhaseSubStatus.TIME_FOR_PREPARE);
+            nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.TIME_FOR_PREPARE);
             LocalDateTime localDateTime = LocalDateTime.of(2026, 1, 1, 0, 0, 0); // January 1, 2026, 00:00:00
             ZoneId zoneId = ZoneId.of("UTC");
             ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, zoneId);
             nextPhase.setInterviewScheduleTime(zonedDateTime.toInstant());
         } else {
-            nextPhase.setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
+            nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
         }
     }
 

@@ -51,7 +51,7 @@ public class Job {
 
     public Phase currentPhase() {
         return phases.stream()
-                .filter(e -> e.getStatus() == PhaseStatus.IN_PROGRESS)
+                .filter(e -> e.getStatusInfoEntity().getStatus()  == PhaseStatus.IN_PROGRESS)
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("incorrect state phases entity"));
     }
