@@ -5,6 +5,7 @@ public enum PhaseSubStatus {
     NONE(""),
     ACTION_REQUIRED("Action required"),
     WAIT_RESPONSE("Wait Response"),
+    WAIT_OFFER_DESICION("Wait Offrer Desicion"),
     TIME_FOR_PREPARE("Time For Prepare"),
     DONE("Done");
 

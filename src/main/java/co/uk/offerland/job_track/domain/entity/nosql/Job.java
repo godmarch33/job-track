@@ -62,8 +62,6 @@ public class Job {
     }
 
     public void removeAvailablePhase(String phaseName) {
-        log.info("removing available phase {}", phaseName);
-        log.info("before available phases {}", availablePhases);
         availablePhases.remove(phaseName);
         log.info("after available phases {}", availablePhases);
     }
@@ -72,8 +70,8 @@ public class Job {
         int orderIndex = currentPhase().getOrderIndex();
 
         return phases.stream()
-                .filter(e -> e.getOrderIndex() == orderIndex + 1)
+                .filter(e -> e.getOrderIndex() == (orderIndex + 1))
                 .findFirst()
-                .orElse(null);
+                .orElse(phases.getLast());
     }
 }
