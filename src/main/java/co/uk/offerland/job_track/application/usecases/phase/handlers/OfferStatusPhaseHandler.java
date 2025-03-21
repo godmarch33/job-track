@@ -24,6 +24,8 @@ public class OfferStatusPhaseHandler implements PhaseHandler {
     public void handle(User user, Phase currentPhase, Phase nextPhase) {
         currentPhase.getStatusInfoEntity().setStatus(PhaseStatus.COMPLETED);
         currentPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.DONE);
+        currentPhase.getStatusInfoEntity().setMsgTooltip("Well done");
+        currentPhase.getStatusInfoEntity().setNextStageButtonName("none");
         currentPhase.setLastUpdatedDate(Instant.now());
     }
 
