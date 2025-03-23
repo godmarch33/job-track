@@ -10,9 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.UUID;
 
 
@@ -52,7 +49,7 @@ public interface PhaseHandler {
                 nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.TIME_FOR_PREPARE);
                 nextPhase.getStatusInfoEntity().setMsgTooltip(MSG_TOOLTIP_TIME_FOR_PREPARE);
             } else {
-                nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
+                nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.PENDING_HR_REPLY);
             }
             logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), currentPhase.getStatusInfoEntity().getSubStatus().getLabel(), nextPhase.getStatusInfoEntity().getSubStatus().getLabel(), currentPhase.getJobPhaseId());
         }

@@ -24,12 +24,12 @@ public class AppliedPhaseHandler implements PhaseHandler {
     @Override
     public void handle(User user, Phase currentPhase, Phase nextPhase) {
         if (PhaseSubStatus.ACTION_REQUIRED == currentPhase.getStatusInfoEntity().getSubStatus()) {
-            currentPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
+            currentPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.PENDING_HR_REPLY);
             currentPhase.getStatusInfoEntity().setMsgTooltip(MSG_TOOLTIP_WAIT_RESPONSE);
             currentPhase.getStatusInfoEntity().setNextStageButtonName(PROCEED_TO_NEXT_INTERVIEW_STAGE);
             currentPhase.setLastUpdatedDate(Instant.now());
-            logChangePhase(currentPhase.getPhaseName(), currentPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), PhaseSubStatus.WAIT_RESPONSE.getLabel(), currentPhase.getJobPhaseId());
-        } else if (PhaseSubStatus.WAIT_RESPONSE == currentPhase.getStatusInfoEntity().getSubStatus()) {
+            logChangePhase(currentPhase.getPhaseName(), currentPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), PhaseSubStatus.PENDING_HR_REPLY.getLabel(), currentPhase.getJobPhaseId());
+        } else if (PhaseSubStatus.PENDING_HR_REPLY == currentPhase.getStatusInfoEntity().getSubStatus()) {
             handlePhaseWaitResponse(currentPhase, nextPhase);
         }
     }

@@ -28,7 +28,7 @@ public class SavePhaseHandler implements PhaseHandler {
         currentPhase.setLastUpdatedDate(Instant.now());
         nextPhase.getStatusInfoEntity().setStatus(PhaseStatus.IN_PROGRESS);
         nextPhase.setLastUpdatedDate(Instant.now());
-        nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.WAIT_RESPONSE);
+        nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.PENDING_HR_REPLY);
         logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), nextPhase.getStatusInfoEntity().getSubStatus().getLabel(), currentPhase.getJobPhaseId());
     }
 }
