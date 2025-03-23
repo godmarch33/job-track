@@ -18,6 +18,7 @@ import reactor.core.scheduler.Schedulers;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 
 @Slf4j
 @Service
@@ -28,8 +29,8 @@ public class SearchJobService {
 
     private  static String apiKey = "scp-live-fc4dc4169e1e4a7cbfef4eae69d4cf11";
 
-    @SneakyThrows
     public Mono<String> search(String searchUri) {
+       log.info("Searching111 for {}", searchUri);
         return Mono.fromCallable(() ->
                         Jsoup.connect(searchUri)
                                 .timeout(3000)
@@ -40,67 +41,89 @@ public class SearchJobService {
                 .doOnError(error -> log.error("Failed to fetch HTML: {}", error.getMessage()))
                 .onErrorResume(error -> {
                     log.info("Falling back to Scrapfly for: {}", searchUri);
-                    try {
-                        String encodedUrl = URLEncoder.encode(searchUri, StandardCharsets.UTF_8);
-                        URL url = new URL("https://api.scrapfly.io/scrape?url=" + encodedUrl + "&key=" + apiKey + "&render_js=true&asp=true");
-
-                        return webClient.get()
-                                .uri(url.toURI())
-                                .accept(MediaType.APPLICATION_JSON)
-                                .retrieve()
-                                .bodyToMono(String.class)
-                                .map(response -> {
-                                    try {
-                                        JSONObject jsonResponse = new JSONObject(response);
-                                        JSONObject resultObject = jsonResponse.getJSONObject("result");
-                                        String html = resultObject.getString("content");
-                                        Document doc = Jsoup.parse(html);
-                                        String plainText = doc.text();
-                                        log.info("Scrapfly fetched plainText: {}", plainText);
-                                        return plainText;
-                                    } catch (Exception e) {
-                                        log.error("Error processing Scrapfly response: {}", e.getMessage(), e);
-                                        return "Error processing response";
-                                    }
-                                })
-                                .onErrorResume(e -> {
-                                    log.error("Error during Scrapfly request: {}", e.getMessage(), e);
-                                    return Mono.just("Error during Scrapfly request");
-                                });
-                    } catch (Exception e) {
-                        log.error("Failed to construct Scrapfly URL: {}", e.getMessage(), e);
-                        return Mono.just("Failed to construct Scrapfly URL");
-                    }
+                    return fallbackToScrapfly(searchUri);
                 });
-//         Mono.fromCallable(() -> Jsoup.connect(searchUri).timeout(30000).get().text())
-//                .subscribeOn(Schedulers.boundedElastic()) // Run blocking call on a separate thread
-//                .doOnError(error -> log.error("Failed to fetch HTML: {}", error.getMessage()));
-//
-//        String encodedUrl = URLEncoder.encode(searchUri, StandardCharsets.UTF_8);
-//        URL url = new URL("https://api.scrapfly.io/scrape?url=" + encodedUrl + "&key=" + apiKey + "&render_js=true&asp=true"); // render_js=true for javascript support.
-//
-//        return webClient.get()
-//                .uri(url.toURI())
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToMono(String.class)
-//                .map(response -> {
-//                    try {
-//                        JSONObject jsonResponse = new JSONObject(response);
-//                        JSONObject resultObject = jsonResponse.getJSONObject("result");
-//                        String html = resultObject.getString("content");
-//                        Document doc = Jsoup.parse(html);
-//                        String plainText = doc.text();
-//                        log.info("plainText: {}", plainText);
-//                        return plainText;
-//                    } catch (Exception e) {
-//                        log.error("Error processing response: {}", e.getMessage(), e);
-//                        return "Error processing response";
-//                    }
-//                })
-//                .onErrorResume(e -> {
-//                    log.error("Error during Scrapfly request: {}", e.getMessage(), e);
-//                    return Mono.just("Error during Scrapfly request");
-//                });
     }
+
+    private Mono<String> fallbackToScrapfly(String searchUri) {
+        try {
+            String encodedUrl = URLEncoder.encode(searchUri, StandardCharsets.UTF_8);
+            URL url = new URL("https://api.scrapfly.io/scrape?url=" + encodedUrl + "&key=" + apiKey + "&render_js=true&asp=true");
+
+            return webClient.get()
+                    .uri(url.toURI())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .timeout(Duration.ofSeconds(10)) // Timeout for Scrapfly request
+                    .map(this::processScrapflyResponse)
+                    .onErrorResume(e -> {
+                        log.error("Error during Scrapfly request: {}", e.getMessage(), e);
+                        return Mono.just("Error during Scrapfly request");
+                    });
+        } catch (Exception e) {
+            log.error("Failed to construct Scrapfly URL: {}", e.getMessage(), e);
+            return Mono.just("Failed to construct Scrapfly URL");
+        }
+    }
+
+    private String processScrapflyResponse(String response) {
+        try {
+            JSONObject jsonResponse = new JSONObject(response);
+            JSONObject resultObject = jsonResponse.getJSONObject("result");
+            String html = resultObject.getString("content");
+            Document doc = Jsoup.parse(html);
+            String plainText = doc.text();
+            log.info("Scrapfly fetched plainText: {}", plainText);
+            return plainText;
+        } catch (Exception e) {
+            log.error("Error processing Scrapfly response: {}", e.getMessage(), e);
+            return "Error processing response";
+        }
+    }
+
+//    public Mono<String> search(String searchUri) {
+//        return Mono.fromCallable(() ->
+//                        Jsoup.connect(searchUri)
+//                                .timeout(3000)
+//                                .get()
+//                                .text()
+//                )
+//                .subscribeOn(Schedulers.boundedElastic()) // Run blocking call on a separate thread
+//                .doOnError(error -> log.error("Failed to fetch HTML: {}", error.getMessage()))
+//                .onErrorResume(error -> {
+//                    log.info("Falling back to Scrapfly for: {}", searchUri);
+//                    try {
+//                        String encodedUrl = URLEncoder.encode(searchUri, StandardCharsets.UTF_8);
+//                        URL url = new URL("https://api.scrapfly.io/scrape?url=" + encodedUrl + "&key=" + apiKey + "&render_js=true&asp=true");
+//
+//                        return webClient.get()
+//                                .uri(url.toURI())
+//                                .accept(MediaType.APPLICATION_JSON)
+//                                .retrieve()
+//                                .bodyToMono(String.class)
+//                                .map(response -> {
+//                                    try {
+//                                        JSONObject jsonResponse = new JSONObject(response);
+//                                        JSONObject resultObject = jsonResponse.getJSONObject("result");
+//                                        String html = resultObject.getString("content");
+//                                        Document doc = Jsoup.parse(html);
+//                                        String plainText = doc.text();
+//                                        log.info("Scrapfly fetched plainText: {}", plainText);
+//                                        return plainText;
+//                                    } catch (Exception e) {
+//                                        log.error("Error processing Scrapfly response: {}", e.getMessage(), e);
+//                                        return "Error processing response";
+//                                    }
+//                                })
+//                                .onErrorResume(e -> {
+//                                    log.error("Error during Scrapfly request: {}", e.getMessage(), e);
+//                                    return Mono.just("Error during Scrapfly request");
+//                                });
+//                    } catch (Exception e) {
+//                        log.error("Failed to construct Scrapfly URL: {}", e.getMessage(), e);
+//                        return Mono.just("Failed to construct Scrapfly URL");
+//                    }
+//                });
+
 }
