@@ -31,7 +31,7 @@ public class Job {
     private List<Phase> phases = new ArrayList<>();
     @Field("available_phase")
     private List<String> availablePhases = new ArrayList<>();
-    private ContactPerson contactPerson;
+    private List<ContactPerson> contactPersons = new ArrayList<>();
     private String description;
     private String jobSalary;
     private String desiredSalary;

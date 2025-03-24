@@ -30,7 +30,7 @@ public class SearchJobService {
     private  static String apiKey = "scp-live-fc4dc4169e1e4a7cbfef4eae69d4cf11";
 
     public Mono<String> search(String searchUri) {
-       log.info("Searching111 for {}", searchUri);
+       log.info("Searching... {}", searchUri);
         return Mono.fromCallable(() ->
                         Jsoup.connect(searchUri)
                                 .timeout(3000)
@@ -55,7 +55,7 @@ public class SearchJobService {
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .bodyToMono(String.class)
-                    .timeout(Duration.ofSeconds(10)) // Timeout for Scrapfly request
+                    .timeout(Duration.ofSeconds(15))
                     .map(this::processScrapflyResponse)
                     .onErrorResume(e -> {
                         log.error("Error during Scrapfly request: {}", e.getMessage(), e);
