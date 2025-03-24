@@ -1,7 +1,7 @@
 package co.uk.offerland.job_track.domain.entity.nosql;
 
 import co.uk.offerland.job_track.domain.entity.ContactPerson;
-import co.uk.offerland.job_track.domain.entity.JobPhase;
+import co.uk.offerland.job_track.domain.entity.PhaseName;
 import co.uk.offerland.job_track.domain.entity.PhaseStatus;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -44,8 +44,8 @@ public class Job {
     }
 
     public void initializeAvailablePhases() {
-        this.availablePhases.addAll(Arrays.stream(JobPhase.values())
-                .map(JobPhase::getLabel)
+        this.availablePhases.addAll(Arrays.stream(PhaseName.values())
+                .map(PhaseName::getLabel)
                 .toList());
     }
 
@@ -59,6 +59,16 @@ public class Job {
     public void addPhase(Phase phase) {
         this.phases.add(phase);
         removeAvailablePhase(phase.getPhaseName());
+    }
+
+    public void removePhase(Phase phase) {
+        this.phases.remove(phase);
+        addAvailablePhase(phase.getPhaseName());
+    }
+
+    public void addAvailablePhase(String phaseName) {
+        availablePhases.add(phaseName);
+        log.info("after add available phases {}", availablePhases);
     }
 
     public void removeAvailablePhase(String phaseName) {

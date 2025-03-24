@@ -1,6 +1,6 @@
 package co.uk.offerland.job_track.application.usecases.phase.handlers;
 
-import co.uk.offerland.job_track.domain.entity.JobPhase;
+import co.uk.offerland.job_track.domain.entity.PhaseName;
 import co.uk.offerland.job_track.domain.entity.PhaseStatus;
 import co.uk.offerland.job_track.domain.entity.PhaseSubStatus;
 import co.uk.offerland.job_track.domain.entity.nosql.Phase;
@@ -18,7 +18,7 @@ public class SavePhaseHandler implements PhaseHandler {
 
     @Override
     public boolean isApplicable(Phase phase) {
-        return JobPhase.SAVED.getLabel().equals(phase.getPhaseName());
+        return PhaseName.SAVED.getLabel().equals(phase.getPhaseName());
     }
 
     @Override

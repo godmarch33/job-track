@@ -1,6 +1,6 @@
 package co.uk.offerland.job_track.application.usecases.phase.handlers;
 
-import co.uk.offerland.job_track.domain.entity.JobPhase;
+import co.uk.offerland.job_track.domain.entity.PhaseName;
 import co.uk.offerland.job_track.domain.entity.PhaseStatus;
 import co.uk.offerland.job_track.domain.entity.PhaseSubStatus;
 import co.uk.offerland.job_track.domain.entity.nosql.Phase;
@@ -36,7 +36,7 @@ public interface PhaseHandler {
         nextPhase.getStatusInfoEntity().setStatus(PhaseStatus.IN_PROGRESS);
         nextPhase.setLastUpdatedDate(Instant.now());
 
-        if (nextPhase.getPhaseName().equals(JobPhase.OFFER_STATUS.getLabel())) {
+        if (nextPhase.getPhaseName().equals(PhaseName.OFFER_STATUS.getLabel())) {
             nextPhase.getStatusInfoEntity().setNextStageButtonName("none");
             nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.WAIT_OFFER_DESICION);
             nextPhase.getStatusInfoEntity().setMsgTooltip(MSG_TOOLTIP_WAIT_FINAL_RESPONSE);

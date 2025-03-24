@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 
 import static co.uk.offerland.job_track.application.usecases.phase.handlers.PhaseHandler.*;
-import static co.uk.offerland.job_track.domain.entity.JobPhase.NEGOTIATION;
+import static co.uk.offerland.job_track.domain.entity.PhaseName.NEGOTIATION;
 
 @Service
 public class NegotiationPhaseHandler implements PhaseHandler {

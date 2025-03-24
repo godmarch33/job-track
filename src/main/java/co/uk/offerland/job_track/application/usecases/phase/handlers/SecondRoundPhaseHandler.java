@@ -9,7 +9,7 @@ import java.time.Instant;
 
 import static co.uk.offerland.job_track.application.usecases.phase.handlers.PhaseHandler.handlePhaseWaitResponse;
 import static co.uk.offerland.job_track.application.usecases.phase.handlers.PhaseHandler.logChangePhase;
-import static co.uk.offerland.job_track.domain.entity.JobPhase.SECOND_ROUND;
+import static co.uk.offerland.job_track.domain.entity.PhaseName.SECOND_ROUND;
 
 @Service
 public class SecondRoundPhaseHandler implements PhaseHandler {

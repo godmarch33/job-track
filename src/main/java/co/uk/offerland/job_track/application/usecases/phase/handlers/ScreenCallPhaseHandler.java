@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 
 import static co.uk.offerland.job_track.application.usecases.phase.handlers.PhaseHandler.*;
-import static co.uk.offerland.job_track.domain.entity.JobPhase.SCREENING_CALL;
+import static co.uk.offerland.job_track.domain.entity.PhaseName.SCREENING_CALL;
 
 @Slf4j
 @Service

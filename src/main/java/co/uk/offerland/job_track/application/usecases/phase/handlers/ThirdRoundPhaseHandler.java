@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 
 import static co.uk.offerland.job_track.application.usecases.phase.handlers.PhaseHandler.*;
-import static co.uk.offerland.job_track.domain.entity.JobPhase.THIRD_ROUND;
+import static co.uk.offerland.job_track.domain.entity.PhaseName.THIRD_ROUND;
 
 @Service
 public class ThirdRoundPhaseHandler implements PhaseHandler {
