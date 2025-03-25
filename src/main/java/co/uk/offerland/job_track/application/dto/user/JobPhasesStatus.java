@@ -11,6 +11,7 @@ public class JobPhasesStatus {
     private int appliedCount;
     private int interviewCount;
     private int rejectedCount;
+    private int declinedCount;
     private int acceptedCount;
     private DailyProgress dailyProgress;
 }

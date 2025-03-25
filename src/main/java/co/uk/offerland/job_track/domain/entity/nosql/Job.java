@@ -80,7 +80,7 @@ public class Job {
         int orderIndex = currentPhase().getOrderIndex();
 
         return phases.stream()
-                .filter(e -> e.getOrderIndex() == (orderIndex + 1))
+                .filter(e -> e.getOrderIndex() == (orderIndex +1))
                 .findFirst()
                 .orElse(phases.getLast());
     }
