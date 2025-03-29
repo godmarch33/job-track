@@ -30,6 +30,7 @@ public class FirstRoundPhaseHandler implements PhaseHandler {
                     PhaseSubStatus.TIME_FOR_PREPARE.getLabel(),
                     PhaseSubStatus.PENDING_HR_REPLY.getLabel(),
                     currentPhase.getJobPhaseId());
+            user.getInterviewStat().increaseInterview();
         } else if (PhaseSubStatus.PENDING_HR_REPLY == currentPhase.getStatusInfoEntity().getSubStatus() ) {
             handlePhaseWaitResponse(currentPhase, nextPhase);
         }

@@ -28,6 +28,7 @@ public class AppliedPhaseHandler implements PhaseHandler {
             currentPhase.getStatusInfoEntity().setMsgTooltip(MSG_TOOLTIP_WAIT_RESPONSE);
             currentPhase.getStatusInfoEntity().setNextStageButtonName(PROCEED_TO_NEXT_INTERVIEW_STAGE);
             currentPhase.setLastUpdatedDate(Instant.now());
+            user.getInterviewStat().increaseApplied();
             logChangePhase(currentPhase.getPhaseName(), currentPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), PhaseSubStatus.PENDING_HR_REPLY.getLabel(), currentPhase.getJobPhaseId());
         } else if (PhaseSubStatus.PENDING_HR_REPLY == currentPhase.getStatusInfoEntity().getSubStatus()) {
             handlePhaseWaitResponse(currentPhase, nextPhase);
