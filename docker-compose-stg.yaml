@@ -63,8 +63,8 @@ services:
     container_name: keycloak
     command: start-dev --http-port=8085
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=superAdmin!123
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=superAdmin!123
       - KC_DB=postgres
       - KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak
       - KC_DB_USERNAME=keycloak
@@ -72,7 +72,7 @@ services:
       - KC_HOSTNAME=xpatjob.co.uk
 #      - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/keycloak.p12
 #      - KC_HTTPS_CERTIFICATE_PASSWORD=superKeycloak
-      - KC_PROXY=edge
+#      - KC_PROXY=edge
     ports:
       - "8085:8085"
     volumes:
