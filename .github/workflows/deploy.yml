@@ -92,7 +92,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
-          source: "ssl/*"
+          source: "src/main/resources/ssl"
           target: "/home/deploy/certs/"
 
       - name: Export Environment Variables
