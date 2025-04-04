@@ -72,6 +72,7 @@ services:
       - KC_HOSTNAME=xpatjob.co.uk
       - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/keycloak.p12
       - KC_HTTPS_CERTIFICATE_PASSWORD=superKeycloak
+      - KC_PROXY=edge
     ports:
       - "8085:8085"
     volumes:
