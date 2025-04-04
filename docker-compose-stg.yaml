@@ -56,12 +56,12 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data0:/var/lib/postgresql/data
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
-    command: start-dev --https-port=8085
+    command: start-dev --http-port=8085
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=superAdmin!123
@@ -70,8 +70,8 @@ services:
       - KC_DB_USERNAME=keycloak
       - KC_DB_PASSWORD=superKeycloak!123
       - KC_HOSTNAME=xpatjob.co.uk
-      - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/keycloak.p12
-      - KC_HTTPS_CERTIFICATE_PASSWORD=superKeycloak
+#      - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/keycloak.p12
+#      - KC_HTTPS_CERTIFICATE_PASSWORD=superKeycloak
       - KC_PROXY=edge
     ports:
       - "8085:8085"
@@ -83,5 +83,5 @@ services:
 volumes:
   mongo_data:
     driver: local
-  postgres_data:
+  postgres_data0:
     driver: local
