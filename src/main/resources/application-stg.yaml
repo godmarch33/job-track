@@ -1,12 +1,12 @@
 server:
-  port: 8443
+  port: 8843
 spring:
   spring:
     security:
       oauth2:
         resourceserver:
           jwt:
-            jwk-set-uri: http://xpatjob.co.uk:8085/realms/offerland-realm-app/protocol/openid-connect/certs
+            jwk-set-uri: http://keycloak:8080/realms/offerland-realm-app/protocol/openid-connect/certs
   data:
     mongodb:
       uri: mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track
