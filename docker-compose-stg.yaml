@@ -12,6 +12,8 @@ services:
       MONGO_INITDB_DATABASE: job-track
     volumes:
       - mongo_data:/data/db
+    networks:
+      - dev_network
 
   faiss-api:
     image: faiss-faiss-api:latest
@@ -24,6 +26,8 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
+    networks:
+      - dev_network
 
   job-track-original:
     image: jobtrack:latest
@@ -45,6 +49,8 @@ services:
       - /home/deploy/data:/app/files
       - /home/deploy/certs:/etc/ssl/certs
     pull_policy: never
+    networks:
+      - dev_network
 
   postgres:
     image: postgres:latest
@@ -56,7 +62,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data0:/var/lib/postgresql/data
+      - postgres_data1
+    networks:
+      - dev_network
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -69,22 +77,36 @@ services:
       - KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak
       - KC_DB_USERNAME=keycloak
       - KC_DB_PASSWORD=superKeycloak!123
-      - KC_HOSTNAME_URL=https://62.171.139.86:8085
-      - KC_HOSTNAME_ADMIN_URL=https://62.171.139.86:8085
-      - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/xpatjob.co.uk.pem
-      - KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/certs/private.pem
-#      - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/keycloak.p12
-#      - KC_HTTPS_CERTIFICATE_PASSWORD=superKeycloak
+      - KC_HOSTNAME=62.171.139.86
+      - KC_HOSTNAME_URL=https://62.171.139.86:8443
+      - KC_HOSTNAME_ADMIN_URL=https://62.171.139.86:8443
       - KC_PROXY=edge
     ports:
-      - "8085:8080"
+      - "8080:8080"
     volumes:
       - /home/deploy/certs:/opt/keycloak/certs
     depends_on:
       - postgres
+    networks:
+      - dev_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-ssl
+    ports:
+      - "8080":"80"
+      - "8443":"443"
+    volumes:
+      - /home/deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /home/deploy/certs:/etc/nginx/certs
+    networks:
+      - dev_network
 
 volumes:
   mongo_data:
     driver: local
-  postgres_data0:
+  postgres_data1:
     driver: local
+networks:
+  dev_network:
+    driver: bridge
