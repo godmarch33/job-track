@@ -77,7 +77,6 @@ services:
       - KC_PROXY=edge
     ports:
       - "8085:8080"
-      - "88843:8443"
     volumes:
       - /home/deploy/certs:/opt/keycloak/certs
     depends_on:
