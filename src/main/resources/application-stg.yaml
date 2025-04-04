@@ -11,9 +11,9 @@ spring:
           cache: INFO
   ssl:
     enabled: true
-    certificate: /etc/ssl/xpatjob.co.uk.crt
-    certificate-private-key: /etc/ssl/private.key
-    trust-certificate: /etc/ssl/xpatjob.co.uk.ca-bundle.crt
+    certificate: /etc/ssl/certs/xpatjob.co.uk.crt
+    certificate-private-key: /etc/ssl/certs/private.key
+    trust-certificate: /etc/ssl/certs/xpatjob.co.uk.ca-bundle.crt
 search:
   service:
     url: ${SEARCH_SERVICE_URL}
