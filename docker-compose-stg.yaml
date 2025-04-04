@@ -62,7 +62,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data1
+      - postgres_data1:/var/lib/postgresql/data
     networks:
       - dev_network
 
