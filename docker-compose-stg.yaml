@@ -44,7 +44,7 @@ services:
         - SPRING_SSL_CERTIFICATE_PRIVATE_KEY=/etc/ssl/certs/private.key
         - SPRING_SSL_TRUST_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.ca-bundle.crt
     ports:
-      - "8443:8443"
+      - "8843:8843"
     volumes:
       - /home/deploy/data:/app/files
       - /home/deploy/certs:/etc/ssl/certs
@@ -94,7 +94,7 @@ services:
     image: nginx:latest
     container_name: nginx-ssl
     ports:
-      - "8080:80"
+      - "8088:80"
       - "8443:443"
     volumes:
       - /home/deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
