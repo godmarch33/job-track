@@ -101,6 +101,8 @@ services:
       - /home/deploy/certs:/etc/nginx/certs
     networks:
       - dev_network
+    depends_on:
+      - keycloak
 
 volumes:
   mongo_data:
