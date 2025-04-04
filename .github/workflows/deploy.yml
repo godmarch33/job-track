@@ -119,14 +119,7 @@ jobs:
             docker rmi -f "$DOCKER_IMAGE_NAME" || true
             docker load -i /home/deploy/job-track/app-image.tar
             
-            # Ensure SSL certificates are in the right place
-            mkdir -p /etc/ssl/certs /etc/ssl/private
-            cp /home/deploy/certs/xpatjob.co.uk.crt /etc/ssl/certs/
-            cp /home/deploy/certs/xpatjob.co.uk.ca-bundle.crt /etc/ssl/certs/
-            cp /home/deploy/certs/private.key /etc/ssl/private/
-            
             cd /home/deploy/job-track
             
             docker compose -f docker-compose-stg.yaml down --remove-orphans
-            
             docker compose -f docker-compose-stg.yaml up -d --build
