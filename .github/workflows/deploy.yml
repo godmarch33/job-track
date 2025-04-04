@@ -85,16 +85,6 @@ jobs:
         run: |
           ls -al
 
-      - name: Copy SSL Certificates to Server
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: "5522"
-          source: "src/main/resources/ssl"
-          target: "/home/deploy/certs/"
-
       - name: Export Environment Variables
         run: |
           echo "MONGO_USER=${{ secrets.MONGO_USER }}" >> $GITHUB_ENV
