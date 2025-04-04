@@ -85,6 +85,16 @@ jobs:
         run: |
           ls -al
 
+      - name: Copy SSL Certificates to Server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: "5522"
+          source: "ssl/*"
+          target: "/home/deploy/certs/"
+
       - name: Export Environment Variables
         run: |
           echo "MONGO_USER=${{ secrets.MONGO_USER }}" >> $GITHUB_ENV
@@ -111,9 +121,19 @@ jobs:
             export OPEN_API_KEY="${{ secrets.OPEN_API_KEY }}"
             export SEARCH_SERVICE_URL="${{ secrets.SEARCH_SERVICE_URL }}"
             export SPRING_PROFILES_ACTIVE="${{ secrets.SPRING_PROFILES_ACTIVE }}"
+            export SPRING_SSL_ENABLED=true
+            export SPRING_SSL_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.crt
+            export SPRING_SSL_CERTIFICATE_PRIVATE_KEY=/etc/ssl/private/private.key
+            export SPRING_SSL_TRUST_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.ca-bundle.crt
             
             docker rmi -f "$DOCKER_IMAGE_NAME" || true
             docker load -i /home/deploy/job-track/app-image.tar
+            
+            # Ensure SSL certificates are in the right place
+            mkdir -p /etc/ssl/certs /etc/ssl/private
+            cp /home/deploy/certs/xpatjob.co.uk.crt /etc/ssl/certs/
+            cp /home/deploy/certs/xpatjob.co.uk.ca-bundle.crt /etc/ssl/certs/
+            cp /home/deploy/certs/private.key /etc/ssl/private/
             
             cd /home/deploy/job-track
             

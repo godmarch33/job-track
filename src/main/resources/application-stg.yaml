@@ -1,3 +1,5 @@
+server:
+  port: 8443
 spring:
   data:
     mongodb:
@@ -6,7 +8,12 @@ spring:
     level:
       org:
         springframework:
-          cache: DEBUG
+          cache: INFO
+  ssl:
+    enabled: true
+    certificate: /etc/ssl/xpatjob.co.uk.crt
+    certificate-private-key: /etc/ssl/private.key
+    trust-certificate: /etc/ssl/xpatjob.co.uk.ca-bundle.crt
 search:
   service:
     url: ${SEARCH_SERVICE_URL}

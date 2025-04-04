@@ -41,6 +41,7 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.14.0")
     implementation("org.jsoup:jsoup:1.16.1")
     implementation("org.json:json:20231013")
+    implementation("org.bouncycastle:bcprov-jdk18on:1.80")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

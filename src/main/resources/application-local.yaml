@@ -1,11 +1,13 @@
 server:
   netty:
     ignored-malformed-requests: false
-  ssl:
-    enabled: false
-    key-store-type: PKCS12
-    key-store: classpath:ssl/localhost.p12
-    key-store-password: passwordpassword
+
+#  port: 8443
+#  ssl:
+#    enabled: false
+#    key-store-type: PKCS12
+#    key-store: classpath:ssl/localhost.p12
+#    key-store-password: passwordpassword
 
 spring:
   security:

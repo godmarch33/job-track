@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  ssl:
+    enabled: false
   application:
     name: job-track
   jackson:

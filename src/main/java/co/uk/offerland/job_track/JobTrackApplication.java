@@ -1,9 +1,12 @@
 package co.uk.offerland.job_track;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import reactor.blockhound.BlockHound;
+
+import java.security.Security;
 
 @EnableReactiveMongoRepositories
 @SpringBootApplication
@@ -13,6 +16,7 @@ public class JobTrackApplication {
 //    }
 
     public static void main(String[] args) {
+        Security.addProvider(new BouncyCastleProvider());
         SpringApplication.run(JobTrackApplication.class, args);
     }
 }
