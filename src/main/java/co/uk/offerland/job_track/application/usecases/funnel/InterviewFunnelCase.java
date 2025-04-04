@@ -31,12 +31,15 @@ public class InterviewFunnelCase {
     private InterviewFunnelResponse mapToInterviewFunnelResponse(User user) {
         var stats = user.getInterviewStat();
         return InterviewFunnelResponse.builder()
-                .acceptedCount(stats.getAcceptedCount())
-                .declinedCount(stats.getDeclinedCount())
-                .rejectedCount(stats.getRejectedCount())
-                .interviewCount(stats.getInterviewCount())
-                .savedCount(stats.getSavedCount())
                 .appliedCount(stats.getAppliedCount())
+                .screeningСallCount(stats.getScreeningСallCount())
+                .assessmentTestCount(stats.getAssessmentTestCount())
+                .firstRoundCount(stats.getFirstRoundCount())
+                .secondRoundCount(stats.getSecondRoundCount())
+                .thirdRoundCount(stats.getThirdRoundCount())
+                .finalRoundCount(stats.getFinalRoundCount())
+                .negotiationCount(stats.getNegotiationCount())
+                .acceptedCount(stats.getAcceptedCount())
                 .build();
     }
 }

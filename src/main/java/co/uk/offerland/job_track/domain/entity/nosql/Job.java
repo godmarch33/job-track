@@ -61,6 +61,34 @@ public class Job {
         removeAvailablePhase(phase.getPhaseName());
     }
 
+    public void addPhaseInOrder(Phase newPhase) {
+        List<Phase> phases = this.getPhases();
+        int offerStatusIndex = -1;
+        for (int i = 0; i < phases.size(); i++) {
+            if (PhaseName.OFFER_STATUS.getLabel().equals(phases.get(i).getPhaseName())) {
+                offerStatusIndex = i;
+                break;
+            }
+        }
+
+        if ("Offer Status".equals(newPhase.getPhaseName())) {
+            phases.add(newPhase);
+        } else {
+            if (offerStatusIndex != -1) {
+                phases.add(offerStatusIndex, newPhase);
+            } else {
+                phases.add(newPhase);
+            }
+        }
+
+        for (int i = 0; i < phases.size(); i++) {
+            phases.get(i).setOrderIndex(i+1);
+        }
+
+        removeAvailablePhase(newPhase.getPhaseName());
+    }
+
+
     public void removePhase(Phase phase) {
         this.phases.remove(phase);
         addAvailablePhase(phase.getPhaseName());

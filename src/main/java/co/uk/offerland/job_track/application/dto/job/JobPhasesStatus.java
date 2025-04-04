@@ -1,5 +1,6 @@
-package co.uk.offerland.job_track.application.dto.user;
+package co.uk.offerland.job_track.application.dto.job;
 
+import co.uk.offerland.job_track.application.dto.user.DailyProgress;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -1,9 +1,7 @@
-package co.uk.offerland.job_track.application.dto.user;
+package co.uk.offerland.job_track.application.dto.job;
 
-import co.uk.offerland.job_track.domain.entity.nosql.DailyProgressEntity;
 import lombok.Builder;
 import lombok.Data;
-import lombok.With;
 
 @Data
 @Builder

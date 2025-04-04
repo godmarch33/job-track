@@ -12,10 +12,13 @@ import lombok.NoArgsConstructor;
 public class InterviewFunnelResponse {
 
   private DailyProgress dailyProgress;
-  private int savedCount;
   private int appliedCount;
-  private int interviewCount;
-  private int rejectedCount;
-  private int declinedCount;
+  private int screeningСallCount;
+  private int assessmentTestCount;
+  private int firstRoundCount;
+  private int secondRoundCount;
+  private int thirdRoundCount;
+  private int finalRoundCount;
+  private int negotiationCount;
   private int acceptedCount;
 }

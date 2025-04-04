@@ -1,4 +1,18 @@
+server:
+  netty:
+    ignored-malformed-requests: false
+  ssl:
+    enabled: false
+    key-store-type: PKCS12
+    key-store: classpath:ssl/localhost.p12
+    key-store-password: passwordpassword
+
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8085/realms/offerland-realm-app/protocol/openid-connect/certs
   data:
     mongodb:
       uri: mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track
@@ -6,6 +20,7 @@ spring:
     compose:
       enabled: true
       file: docker-compose-local.yaml
+
   logging:
     level:
       org:

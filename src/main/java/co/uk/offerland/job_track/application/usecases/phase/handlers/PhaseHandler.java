@@ -17,10 +17,10 @@ public interface PhaseHandler {
 
     String MARK_AS_APPLIED = "Mark as applied";
     String MSG_TOOLTIP_WAIT_FINAL_RESPONSE = "Waiting final status";
-    String MSG_TOOLTIP_WAIT_RESPONSE = "Waiting for a response from HR. You can schedule an interview, edit notes, or add a contact person to assist with the process once you receive more details. Move to the next stage after you get a response";
-    String MSG_TOOLTIP_TIME_FOR_PREPARE = "You have time for prepare to interview";
+    String MSG_TOOLTIP_WAIT_RESPONSE = "Waiting for HR’s reply. Once you hear back, you can update the stage, add a contact, or schedule the next interview.";
+    String MSG_TOOLTIP_TIME_FOR_PREPARE = "Time to prepare for interview";
     String MARK_AS_APPLIED_TOOLTIP = "Press 'Mark as Applied' to confirm that you have applied for this vacancy";
-    String PROCEED_TO_NEXT_INTERVIEW_STAGE = "Proceed to Next Interview Stage";
+    String PROCEED_TO_NEXT_INTERVIEW_STAGE = "Proceed to Next Stage";
 
     Logger log = LoggerFactory.getLogger(PhaseController.class);
 

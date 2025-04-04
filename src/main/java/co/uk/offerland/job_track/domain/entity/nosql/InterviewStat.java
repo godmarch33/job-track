@@ -9,10 +9,17 @@ public class InterviewStat {
     private DailyProgressEntity dailyProgress;
     private int savedCount;
     private int appliedCount;
-    private int interviewCount;
+    private int screeningСallCount;
+    private int assessmentTestCount;
+    private int firstRoundCount;
+    private int secondRoundCount;
+    private int thirdRoundCount;
+    private int finalRoundCount;
+    private int negotiationCount;
     private int rejectedCount;
     private int declinedCount;
     private int acceptedCount;
+
 
     public InterviewStat() {
         dailyProgress = new DailyProgressEntity();
@@ -39,12 +46,33 @@ public class InterviewStat {
         return ++appliedCount;
     }
 
-    public int increaseInterview() {
-        return ++interviewCount;
+
+    public int increaseScreeningСall() {
+        return ++screeningСallCount;
     }
 
-    public int increaseAccepted() {
-        return ++acceptedCount;
+    public int increaseAssessmentTest() {
+        return ++assessmentTestCount;
+    }
+
+    public int increaseFirstRound() {
+        return ++firstRoundCount;
+    }
+
+    public int increaseSecondRound() {
+        return ++secondRoundCount;
+    }
+
+    public int increaseThirdRound() {
+        return ++thirdRoundCount;
+    }
+
+    public int increaseFinalRound() {
+        return ++finalRoundCount;
+    }
+
+    public int increaseNegotiating() {
+        return ++negotiationCount;
     }
 
     public int increaseRejected() {
@@ -53,5 +81,9 @@ public class InterviewStat {
 
     public int increaseDeclined() {
         return ++declinedCount;
+    }
+
+    public int increaseAccepted() {
+        return ++acceptedCount;
     }
 }

@@ -1,1 +1,0 @@
-package co.uk.offerland.job_track.application.dto.user;import lombok.Data;@Datapublic class JobNoteRequest {    private String notes;}
