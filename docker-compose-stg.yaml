@@ -39,6 +39,7 @@ services:
         - SEARCH_SERVICE_URL=${SEARCH_SERVICE_URL}
         - OPEN_API_KEY=${OPEN_API_KEY}
         - SPRING_DATA_MONGODB_URI=mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track?authSource=admin
+        - SPRING_SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://keycloak:8080/realms/offerland-realm-app/protocol/openid-connect/certs
         - SPRING_SSL_ENABLED=false
         - SPRING_SSL_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.crt
         - SPRING_SSL_CERTIFICATE_PRIVATE_KEY=/etc/ssl/certs/private.key
