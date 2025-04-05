@@ -39,7 +39,7 @@ services:
         - SEARCH_SERVICE_URL=${SEARCH_SERVICE_URL}
         - OPEN_API_KEY=${OPEN_API_KEY}
         - SPRING_DATA_MONGODB_URI=mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track?authSource=admin
-        - SPRING_SSL_ENABLED=true
+        - SPRING_SSL_ENABLED=false
         - SPRING_SSL_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.crt
         - SPRING_SSL_CERTIFICATE_PRIVATE_KEY=/etc/ssl/certs/private.key
         - SPRING_SSL_TRUST_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.ca-bundle.crt
@@ -95,8 +95,6 @@ services:
         condition: service_healthy
     networks:
       - dev_network
-
-
 
   nginx:
     image: nginx:latest
