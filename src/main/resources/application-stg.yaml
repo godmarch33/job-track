@@ -6,7 +6,7 @@ spring:
       oauth2:
         resourceserver:
           jwt:
-            jwk-set-uri: http://keycloak:8080/realms/offerland-realm-app/protocol/openid-connect/certs
+            jwk-set-uri: https://xpatjob.co.uk/realms/offerland-realm-app/protocol/openid-connect/certs
   data:
     mongodb:
       uri: mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track
