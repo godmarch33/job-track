@@ -1,5 +1,5 @@
 server:
-  port: 8843
+  port: 8088
 spring:
   spring:
     security:
@@ -16,7 +16,7 @@ spring:
         springframework:
           cache: INFO
   ssl:
-    enabled: true
+    enabled: false
     certificate: /etc/ssl/certs/xpatjob.co.uk.crt
     certificate-private-key: /etc/ssl/certs/private.key
     trust-certificate: /etc/ssl/certs/xpatjob.co.uk.ca-bundle.crt
