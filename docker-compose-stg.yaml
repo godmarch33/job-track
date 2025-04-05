@@ -71,7 +71,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
-    command: start-dev
+    command: start-dev --http-enabled=true --proxy-headers=xforwarded
     environment:
       - KC_DB=postgres
       - KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak
@@ -80,12 +80,12 @@ services:
       - KC_BOOTSTRAP_ADMIN_USERNAME=admin
       - KC_BOOTSTRAP_ADMIN_PASSWORD=superAdmin!123
       - KC_PROXY=edge
-#      - KC_HTTP_RELATIVE_PATH=/keycloak
       - KC_HOSTNAME=xpatjob.co.uk
       - KC_HOSTNAME_URL=https://xpatjob.co.uk
       - KC_HOSTNAME_ADMIN_URL=https://xpatjob.co.uk
       - KC_HOSTNAME_STRICT=false
-      - KEYCLOAK_FRONTEND_URL=https://xpatjob.co.uk/auth
+      - KEYCLOAK_FRONTEND_URL=https://xpatjob.co.uk
+      - KC_PROXY_HEADERS=xforwarded
     expose:
       - "8080:8080"
     volumes:
