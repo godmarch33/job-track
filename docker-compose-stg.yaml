@@ -80,7 +80,7 @@ services:
       - KC_BOOTSTRAP_ADMIN_USERNAME=admin
       - KC_BOOTSTRAP_ADMIN_PASSWORD=superAdmin!123
       - KC_PROXY=edge
-      - KC_HTTP_RELATIVE_PATH=/keycloak
+#      - KC_HTTP_RELATIVE_PATH=/keycloak
       - KC_HOSTNAME=xpatjob.co.uk
       - KC_HOSTNAME_URL=https://xpatjob.co.uk/keycloak
       - KC_HOSTNAME_ADMIN_URL=https://xpatjob.co.uk/keycloak
