@@ -81,10 +81,11 @@ services:
       - KC_BOOTSTRAP_ADMIN_PASSWORD=superAdmin!123
       - KC_HOSTNAME=xpatjob.co.uk
       - KC_PROXY=edge
-      - KC_HOSTNAME_URL=https://xpatjob.co.uk:8443
-      - KC_HOSTNAME_ADMIN_URL=https://xpatjob.co.uk:8443
+      - KC_HTTP_RELATIVE_PATH=/keycloak
+      - KC_HOSTNAME_URL=https://xpatjob.co.uk/keycloak
+      - KC_HOSTNAME_ADMIN_URL=https://xpatjob.co.uk/keycloak
 #      - KC_HOSTNAME_PORT=8443
-#      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT=false
 #      - KC_HOSTNAME_STRICT_HTTPS=false
 #      - KEYCLOAK_FRONTEND_URL=https://xpatjob.co.uk/keycloak
 #      - KC_BASE_URL=https://xpatjob.co.uk/keycloak
