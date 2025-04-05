@@ -111,6 +111,7 @@ services:
       - dev_network
     depends_on:
       - keycloak
+      - job-track-original
 
 volumes:
   mongo_data:
