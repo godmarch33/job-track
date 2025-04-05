@@ -85,7 +85,7 @@ services:
       - KC_HOSTNAME_URL=https://xpatjob.co.uk
       - KC_HOSTNAME_ADMIN_URL=https://xpatjob.co.uk
       - KC_HOSTNAME_STRICT=false
-      - KEYCLOAK_FRONTEND_URL=https://xpatjob.co.uk
+      - KEYCLOAK_FRONTEND_URL=https://xpatjob.co.uk/auth
     expose:
       - "8080:8080"
     volumes:
