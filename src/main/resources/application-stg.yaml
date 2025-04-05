@@ -14,7 +14,7 @@ spring:
     level:
       org:
         springframework:
-          cache: INFO
+          cache: DEBUG
   ssl:
     enabled: false
     certificate: /etc/ssl/certs/xpatjob.co.uk.crt
