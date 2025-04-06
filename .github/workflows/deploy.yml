@@ -48,17 +48,30 @@ jobs:
           source: "docker-compose-stg.yaml"
           target: "/home/deploy/job-track/"
 
-      - name: Build Docker Image
+      - name: Build Job Track Docker Image
         run: |
           ls -al
           docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} .
           docker save -o ./app-image.tar ${{ secrets.DOCKER_IMAGE_NAME }}
+
+      - name: Build Umami Analytics Docker Image
+        run: |
+          cd /umami/src
+          docker build -f Dockerfile -t umami-custom:latest --build-arg BASE_PATH=/umami .
+          docker save -o ../../umami-image.tar umami-custom:latest
+          cd ../..
 
       - name: Upload Docker Image as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: docker-image
           path: ./app-image.tar
+
+      - name: Upload Umami Docker Image as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: umami-docker-image
+          path: ./umami-image.tar
 
   deploy:
     name: Deploy to On-Prem Server
@@ -78,7 +91,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
-          source: "app-image.tar"
+          source: "app-image.tar umami-image.tar"
           target: "/home/deploy/job-track"
 
       - name: List Directory Contents
@@ -118,11 +131,10 @@ jobs:
             
             docker rmi -f "$DOCKER_IMAGE_NAME" || true
             docker load -i /home/deploy/job-track/app-image.tar
+            docker load -i /home/deploy/job-track/umami-image.tar
             
             cd /home/deploy/job-track
             
             docker compose -f docker-compose-stg.yaml down --remove-orphans
-            
-            docker compose -f docker-compose-stg.yaml build umami
             
             docker compose -f docker-compose-stg.yaml up -d --build
