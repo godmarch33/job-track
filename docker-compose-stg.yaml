@@ -136,6 +136,10 @@ services:
       retries: 5
     networks:
     - dev_network
+    build:
+      context: .
+      args:
+        BASE_PATH: /umami
 
 volumes:
   mongo_data:
