@@ -1,7 +1,10 @@
 package co.uk.offerland.job_track.domain.entity.nosql;
 
+import co.uk.offerland.job_track.domain.entity.PhaseName;
 import co.uk.offerland.job_track.domain.entity.PhaseStatus;
 import lombok.Data;
+
+import static co.uk.offerland.job_track.domain.entity.PhaseName.SCREENING_CALL;
 
 @Data
 
@@ -34,6 +37,19 @@ public class InterviewStat {
         }
     }
 
+    public void increaseInterviewCounts(String phaseName) {
+        switch (PhaseName.fromCode(phaseName)) {
+            case SCREENING_CALL -> increaseScreeningСall();
+            case ASSESSMENT_TEST -> increaseAssessmentTest();
+            case FIRST_ROUND -> increaseFirstRound();
+            case SECOND_ROUND -> increaseSecondRound();
+            case THIRD_ROUND -> increaseThirdRound();
+            case FINAL_ROUND -> increaseFinalRound();
+            case NEGOTIATION -> increaseNegotiating();
+            default -> throw new IllegalArgumentException("Invalid phase name: " + phaseName);
+        }
+    }
+
     public int increaseDayProgress() {
         return dailyProgress.updateCounter();
     }
@@ -45,7 +61,6 @@ public class InterviewStat {
     public int increaseApplied() {
         return ++appliedCount;
     }
-
 
     public int increaseScreeningСall() {
         return ++screeningСallCount;
@@ -85,5 +100,9 @@ public class InterviewStat {
 
     public int increaseAccepted() {
         return ++acceptedCount;
+    }
+
+    public void increase(String phaseName) {
+        increaseInterviewCounts(phaseName);
     }
 }
