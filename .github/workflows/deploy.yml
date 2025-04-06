@@ -53,7 +53,7 @@ jobs:
           cd umami/src
           docker build -f Dockerfile -t umami-custom:latest --build-arg DATABASE_TYPE=postgres --build-arg BASE_PATH=/umami .
           docker save -o ../../umami-image.tar umami-custom:latest
-          cd .. # Go back to the parent directory (umami)
+          cd ../.. # Go back to the parent directory (umami)
 
       - name: Build Job Track Docker Image
         run: |
@@ -83,6 +83,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: docker-image
+
+      - name: List Directory Contents
+        run: |
+          ls -al
 
       - name: Copy Docker Image to Server using SCP
         uses: appleboy/scp-action@v0.1.4
