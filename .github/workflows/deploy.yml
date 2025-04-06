@@ -100,7 +100,17 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
-          source: "app-image.tar umami-image.tar"
+          source: "app-image.tar"
+          target: "/home/deploy/job-track"
+
+      - name: Copy Docker Umami Image to Server using SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: "5522"
+          source: "umami-image.tar"
           target: "/home/deploy/job-track"
 
       - name: List Directory Contents
