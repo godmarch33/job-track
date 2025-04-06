@@ -124,7 +124,6 @@ services:
       DATABASE_URL: postgresql://umami:superUmami!123@postgres-db:5432/umami
       DATABASE_TYPE: postgresql
       APP_SECRET: superUmami!123
-      BASE_URL: http://localhost:3000/umami/
     depends_on:
       postgres:
         condition: service_healthy
