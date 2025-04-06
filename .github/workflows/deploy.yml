@@ -56,7 +56,7 @@ jobs:
 
       - name: Build Umami Analytics Docker Image
         run: |
-          cd /umami/src
+          cd umami/src
           docker build -f Dockerfile -t umami-custom:latest --build-arg BASE_PATH=/umami .
           docker save -o ../../umami-image.tar umami-custom:latest
           cd ../..
