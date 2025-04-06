@@ -122,4 +122,7 @@ jobs:
             cd /home/deploy/job-track
             
             docker compose -f docker-compose-stg.yaml down --remove-orphans
+            
+            docker compose -f docker-compose-stg.yaml build umami
+            
             docker compose -f docker-compose-stg.yaml up -d --build
