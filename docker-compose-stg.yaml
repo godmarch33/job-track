@@ -55,7 +55,7 @@ services:
 
   postgres:
     image: postgres:latest
-    container_name: keycloak-db
+    container_name: postgres-db
     environment:
       - POSTGRES_DB=keycloak
       - POSTGRES_USER=keycloak
@@ -65,7 +65,10 @@ services:
     volumes:
       - postgres_data1:/var/lib/postgresql/data
     healthcheck:
-      test: "exit 0"
+      test: [ "CMD-SHELL", "pg_isready -U keycloak -d keycloak" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - dev_network
 
@@ -111,6 +114,27 @@ services:
     depends_on:
       - keycloak
       - job-track-original
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://umami:superUmami!123@postgres-db:5432/umami
+      DATABASE_TYPE: postgresql
+      APP_SECRET: superUmami!123
+    depends_on:
+      postgres:
+        condition: service_healthy
+    init: true
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "curl http://localhost/:3000/api/heartbeat" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  networks:
+    - dev_network
 
 volumes:
   mongo_data:
