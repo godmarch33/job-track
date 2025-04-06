@@ -52,9 +52,8 @@ jobs:
         run: |
           cd umami/src
           docker build -f Dockerfile -t umami-custom:latest --build-arg DATABASE_TYPE=postgres --build-arg BASE_PATH=/umami .
-          cp ./umami-image.tar ../../umami-image.tar
-          cd ../..
-          docker save -o ./umami-image.tar
+          docker save -o ../../umami-image.tar
+          cd ../.. # Go back to the parent directory (umami)
 
       - name: Build Job Track Docker Image
         run: |
