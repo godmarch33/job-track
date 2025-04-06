@@ -51,7 +51,7 @@ jobs:
       - name: Build Umami Analytics Docker Image
         run: |
           cd umami/src
-          docker build -f Dockerfile -t umami-custom:latest --build-arg DATABASE_TYPE=postgres --build-arg BASE_PATH=/umami .
+          docker build --tag umami-custom:v2.17.1 --build-arg DATABASE_TYPE=postgres   --build-arg DATABASE_URL="postgresql://umami:superUmami!123@postgres-db:5432/umami"   --build-arg BASE_URL="http://localhost:3000/stats/"   --build-arg BASE_PATH=//stats .
           docker save -o ../../umami-image.tar umami-custom:latest
           cd ../.. # Go back to the parent directory (umami)
 
