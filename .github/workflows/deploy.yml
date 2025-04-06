@@ -52,7 +52,7 @@ jobs:
         run: |
           cd umami/src
           docker build -f Dockerfile -t umami-custom:latest --build-arg DATABASE_TYPE=postgres --build-arg BASE_PATH=/umami .
-          docker save -o ../umami-image.tar umami-custom:latest
+          docker save -o ../../umami-image.tar umami-custom:latest
           cd .. # Go back to the parent directory (umami)
 
       - name: Build Job Track Docker Image
@@ -60,9 +60,6 @@ jobs:
           ls -al
           docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} .
           docker save -o ./app-image.tar ${{ secrets.DOCKER_IMAGE_NAME }}
-
-
-
 
       - name: Upload Docker Image as Artifact
         uses: actions/upload-artifact@v4
