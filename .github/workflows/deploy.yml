@@ -48,30 +48,11 @@ jobs:
           source: "docker-compose-stg.yaml"
           target: "/home/deploy/job-track/"
 
-      - name: Build Umami Analytics Docker Image
-        run: |
-          cd umami/src
-          docker build --tag umami-custom:v2.17.1 --build-arg DATABASE_TYPE=postgres   --build-arg DATABASE_URL="postgresql://umami:superUmami!123@postgres-db:5432/umami" --build-arg BASE_URL="https://xpatjob.co.uk/stats/"  --build-arg BASE_PATH=/stats .
-          docker save -o ../../umami-image.tar umami-custom:v2.17.1
-          cd ../.. # Go back to the parent directory (umami)
-
       - name: Build Job Track Docker Image
         run: |
           ls -al
           docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} .
           docker save -o ./app-image.tar ${{ secrets.DOCKER_IMAGE_NAME }}
-
-      - name: Upload Docker Image as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: docker-image
-          path: ./app-image.tar
-
-      - name: Upload Umami Docker Image as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: umami-docker-image
-          path: ./umami-image.tar
 
   deploy:
     name: Deploy to On-Prem Server
@@ -84,15 +65,6 @@ jobs:
         with:
           name: docker-image
 
-      - name: Download Umami Docker Image Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: umami-docker-image
-
-      - name: List Directory Contents
-        run: |
-          ls -al
-
       - name: Copy Docker Image to Server using SCP
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -101,16 +73,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: "5522"
           source: "app-image.tar"
-          target: "/home/deploy/job-track"
-
-      - name: Copy Docker Umami Image to Server using SCP
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: "5522"
-          source: "umami-image.tar"
           target: "/home/deploy/job-track"
 
       - name: List Directory Contents
@@ -150,10 +112,6 @@ jobs:
             
             docker rmi -f "$DOCKER_IMAGE_NAME" || true
             docker load -i /home/deploy/job-track/app-image.tar
-            docker load -i /home/deploy/job-track/umami-image.tar
-            
             cd /home/deploy/job-track
-            
             docker compose -f docker-compose-stg.yaml down --remove-orphans
-            
             docker compose -f docker-compose-stg.yaml up -d --build

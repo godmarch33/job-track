@@ -116,7 +116,7 @@ services:
       - job-track-original
 
   umami:
-    image: umami-custom:v2.17.1
+    image: ghcr.io/umami-software/umami:postgresql-latest
     container_name: umami
     ports:
       - "3000:3000"
