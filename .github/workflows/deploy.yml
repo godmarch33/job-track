@@ -54,6 +54,12 @@ jobs:
           docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} .
           docker save -o ./app-image.tar ${{ secrets.DOCKER_IMAGE_NAME }}
 
+      - name: Upload Docker Image as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: ./app-image.tar
+
   deploy:
     name: Deploy to On-Prem Server
     needs: build
