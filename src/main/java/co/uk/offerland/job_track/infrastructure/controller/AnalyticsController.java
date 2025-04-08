@@ -5,7 +5,6 @@ import co.uk.offerland.job_track.application.usecases.analytics.AnalyticsCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ public class AnalyticsController {
     private final AnalyticsCase analyticsCase;
 
     @GetMapping
-    public Mono<ResponseEntity<AnalyticsResponse>> getAnalitics() {
+    public Mono<ResponseEntity<AnalyticsResponse>> getAnalytics() {
         log.info("Income analytics request");
         return analyticsCase.getAllAnalytics().map(response -> ResponseEntity.ok(response));
     }
