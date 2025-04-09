@@ -12,8 +12,8 @@ public class CronService {
 
     private final InterviewReminderService interviewReminderService;
 
-//    @Scheduled(cron = "0 0 6 * * *") // every day at 6 AM
-    @Scheduled(cron = "1 * * * * *") // every minute
+    @Scheduled(cron = "0 0 6 * * *") // every day at 6 AM
+//    @Scheduled(cron = "0 * * * * *") // every minute
     public void sendInterviewReminders() {
         log.info("Sending interview reminders");
         interviewReminderService.sendDailyReminders()
