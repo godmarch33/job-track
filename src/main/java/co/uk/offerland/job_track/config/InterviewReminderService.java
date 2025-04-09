@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Service
@@ -25,7 +26,7 @@ public class InterviewReminderService {
         var start = today.atStartOfDay();
         var end = today.plusDays(1).atStartOfDay();
 
-        return userRepository.findUsersWithInterviewsBetween(start, end)
+        return userRepository.findUsersWithInterviewsBetween(start.toInstant(ZoneOffset.of("UTC")), end.toInstant(ZoneOffset.of("UTC")))
                 .flatMap(user -> {
                     List<Phase> todayPhases = user.getJobs().stream()
                             .flatMap(job -> job.getPhases().stream())

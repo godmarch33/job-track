@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.UUID;
 
 @Data
@@ -19,7 +19,9 @@ public class Phase {
     private int orderIndex;
 
     public LocalDateTime getInterviewDate() {
-        ZoneId zone = ZoneId.of("UTC");
-        return LocalDateTime.ofInstant(interviewScheduleTime, zone);
+        if (interviewScheduleTime == null) {
+            return null;
+        }
+        return LocalDateTime.ofInstant(interviewScheduleTime, ZoneOffset.UTC);
     }
 }

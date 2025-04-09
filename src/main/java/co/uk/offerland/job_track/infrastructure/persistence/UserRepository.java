@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,5 +14,5 @@ public interface UserRepository extends ReactiveMongoRepository<User, String> {
         Mono<User> findByUserId(UUID userId);
 
         @Query("{ 'jobs.phases.interviewScheduleTime': { $gte: ?0, $lt: ?1 } }")
-        Flux<User> findUsersWithInterviewsBetween(LocalDateTime start, LocalDateTime end);
+        Flux<User> findUsersWithInterviewsBetween(Instant start, Instant end);
 }
