@@ -26,13 +26,12 @@ public class MailjetService {
         // Log the input data for debugging purposes
         log.debug("Sending interview reminder email to user: {}", user.getEmail());
 
-        // Generate the email body
         String body = generateEmailBody(user, phases);
         log.debug("Generated email body: {}", body);
 
         Map<String, Object> message = Map.of(
                 "Messages", List.of(Map.of(
-                        "From", Map.of("Email", "noreply@xpatjob.co.uk", "Name", "Career Assistant"),
+                        "From", Map.of("Email", "noreply@xpatjob.co.uk", "Name", "Offerland Career Assistant"),
                         "To", List.of(Map.of("Email", user.getEmail(), "Name", user.getFullName())),
                         "Subject", "Interview Reminder",
                         "HTMLPart", body

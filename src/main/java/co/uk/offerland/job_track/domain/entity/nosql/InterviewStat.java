@@ -46,8 +46,12 @@ public class InterviewStat {
             case THIRD_ROUND -> increaseThirdRound();
             case FINAL_ROUND -> increaseFinalRound();
             case NEGOTIATION -> increaseNegotiating();
+            case OFFER_STATUS -> dumm();
             default -> throw new IllegalArgumentException("Invalid phase name: " + phaseName);
         }
+    }
+
+    private void dumm() {
     }
 
     public int increaseDayProgress() {
