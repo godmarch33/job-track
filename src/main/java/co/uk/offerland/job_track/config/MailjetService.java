@@ -15,7 +15,7 @@ public class MailjetService {
     private final WebClient webClient;
 
     public MailjetService(WebClient.Builder builder) {
-        this.webClient = builder.baseUrl("https://api.mailjet.com/v3.1")
+        this.webClient = builder.baseUrl("https://api.mailjet.com/v3")
                 .defaultHeaders(http -> http.setBasicAuth("df9b7be4be7af756c44fbd269b457519", "a7175be51a2569dbda4f316291144c7d"))
                 .build();
     }
