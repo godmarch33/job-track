@@ -90,10 +90,14 @@ services:
       - KC_HOSTNAME_STRICT=false
       - KEYCLOAK_FRONTEND_URL=https://xpatjob.co.uk
       - KC_PROXY_HEADERS=xforwarded
+      - KC_CACHE_THEMES=false
+      - KC_CACHE_TEMPLATES=false
+      - KC_STATIC_MAX_AGE=-1
     expose:
       - "8080:8080"
     volumes:
       - /home/deploy/certs:/opt/keycloak/certs
+      - /home/deploy/offerland:/opt/keycloak/themes/offerland
     depends_on:
       postgres:
         condition: service_healthy
