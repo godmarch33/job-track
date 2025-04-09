@@ -17,7 +17,7 @@ public class OfferStatusPhaseHandler implements PhaseHandler {
 
     @Override
     public boolean isApplicable(Phase phase) {
-        return OFFER_STATUS.getLabel().equals(phase.getPhaseName());
+        return OFFER_STATUS.getLabel().equals(phase.getName());
     }
 
     @Override

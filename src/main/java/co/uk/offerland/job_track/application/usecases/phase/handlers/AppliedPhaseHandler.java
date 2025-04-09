@@ -18,7 +18,7 @@ public class AppliedPhaseHandler implements PhaseHandler {
 
     @Override
     public boolean isApplicable(Phase phase) {
-        return PhaseName.APPLIED.getLabel().equals(phase.getPhaseName());
+        return PhaseName.APPLIED.getLabel().equals(phase.getName());
     }
 
     @Override
@@ -29,10 +29,10 @@ public class AppliedPhaseHandler implements PhaseHandler {
             currentPhase.getStatusInfoEntity().setNextStageButtonName(PROCEED_TO_NEXT_INTERVIEW_STAGE);
             currentPhase.setLastUpdatedDate(Instant.now());
             user.getInterviewStat().increaseApplied();
-            logChangePhase(currentPhase.getPhaseName(), currentPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), PhaseSubStatus.PENDING_HR_REPLY.getLabel(), currentPhase.getJobPhaseId());
+            logChangePhase(currentPhase.getName(), currentPhase.getName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), PhaseSubStatus.PENDING_HR_REPLY.getLabel(), currentPhase.getJobPhaseId());
         } else if (PhaseSubStatus.PENDING_HR_REPLY == currentPhase.getStatusInfoEntity().getSubStatus()) {
             handlePhaseWaitResponse(currentPhase, nextPhase);
-            user.getInterviewStat().increase(nextPhase.getPhaseName());
+            user.getInterviewStat().increase(nextPhase.getName());
         }
     }
 }

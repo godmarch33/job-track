@@ -36,7 +36,7 @@ public interface PhaseHandler {
         nextPhase.getStatusInfoEntity().setStatus(PhaseStatus.IN_PROGRESS);
         nextPhase.setLastUpdatedDate(Instant.now());
 
-        if (nextPhase.getPhaseName().equals(PhaseName.OFFER_STATUS.getLabel())) {
+        if (nextPhase.getName().equals(PhaseName.OFFER_STATUS.getLabel())) {
             nextPhase.getStatusInfoEntity().setNextStageButtonName("none");
             nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.WAIT_OFFER_DESICION);
             nextPhase.getStatusInfoEntity().setMsgTooltip(MSG_TOOLTIP_WAIT_FINAL_RESPONSE);
@@ -51,7 +51,7 @@ public interface PhaseHandler {
             } else {
                 nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.PENDING_HR_REPLY);
             }
-            logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), currentPhase.getStatusInfoEntity().getSubStatus().getLabel(), nextPhase.getStatusInfoEntity().getSubStatus().getLabel(), currentPhase.getJobPhaseId());
+            logChangePhase(currentPhase.getName(), nextPhase.getName(), currentPhase.getStatusInfoEntity().getSubStatus().getLabel(), nextPhase.getStatusInfoEntity().getSubStatus().getLabel(), currentPhase.getJobPhaseId());
         }
     }
 

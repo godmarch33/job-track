@@ -18,7 +18,7 @@ public class SavePhaseHandler implements PhaseHandler {
 
     @Override
     public boolean isApplicable(Phase phase) {
-        return PhaseName.SAVED.getLabel().equals(phase.getPhaseName());
+        return PhaseName.SAVED.getLabel().equals(phase.getName());
     }
 
     @Override
@@ -29,6 +29,6 @@ public class SavePhaseHandler implements PhaseHandler {
         nextPhase.getStatusInfoEntity().setStatus(PhaseStatus.IN_PROGRESS);
         nextPhase.setLastUpdatedDate(Instant.now());
         nextPhase.getStatusInfoEntity().setSubStatus(PhaseSubStatus.PENDING_HR_REPLY);
-        logChangePhase(currentPhase.getPhaseName(), nextPhase.getPhaseName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), nextPhase.getStatusInfoEntity().getSubStatus().getLabel(), currentPhase.getJobPhaseId());
+        logChangePhase(currentPhase.getName(), nextPhase.getName(), PhaseSubStatus.ACTION_REQUIRED.getLabel(), nextPhase.getStatusInfoEntity().getSubStatus().getLabel(), currentPhase.getJobPhaseId());
     }
 }

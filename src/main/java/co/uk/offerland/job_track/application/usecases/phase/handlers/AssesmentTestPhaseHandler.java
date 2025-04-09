@@ -15,7 +15,7 @@ import static co.uk.offerland.job_track.domain.entity.PhaseSubStatus.TIME_FOR_PR
 public class AssesmentTestPhaseHandler implements PhaseHandler {
     @Override
     public boolean isApplicable(Phase phase) {
-        return ASSESSMENT_TEST.getLabel().equals(phase.getPhaseName());
+        return ASSESSMENT_TEST.getLabel().equals(phase.getName());
     }
 
     @Override
@@ -26,14 +26,14 @@ public class AssesmentTestPhaseHandler implements PhaseHandler {
             currentPhase.getStatusInfoEntity().setNextStageButtonName(PROCEED_TO_NEXT_INTERVIEW_STAGE);
             currentPhase.setLastUpdatedDate(Instant.now());
 
-            logChangePhase(currentPhase.getPhaseName(),
-                    currentPhase.getPhaseName(),
+            logChangePhase(currentPhase.getName(),
+                    currentPhase.getName(),
                     TIME_FOR_PREPARE.getLabel(),
                     PhaseSubStatus.PENDING_HR_REPLY.getLabel(),
                     currentPhase.getJobPhaseId());
         } else if (PhaseSubStatus.PENDING_HR_REPLY == currentPhase.getStatusInfoEntity().getSubStatus()) {
             handlePhaseWaitResponse(currentPhase, nextPhase);
-            user.getInterviewStat().increase(nextPhase.getPhaseName());
+            user.getInterviewStat().increase(nextPhase.getName());
         }
     }
 }
