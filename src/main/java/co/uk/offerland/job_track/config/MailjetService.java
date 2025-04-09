@@ -2,6 +2,7 @@ package co.uk.offerland.job_track.config;
 
 import co.uk.offerland.job_track.domain.entity.nosql.Phase;
 import co.uk.offerland.job_track.domain.entity.nosql.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -9,6 +10,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class MailjetService {
 
@@ -21,7 +23,12 @@ public class MailjetService {
     }
 
     public Mono<Void> sendInterviewReminderEmail(User user, List<Phase> phases) {
+        // Log the input data for debugging purposes
+        log.debug("Sending interview reminder email to user: {}", user.getEmail());
+
+        // Generate the email body
         String body = generateEmailBody(user, phases);
+        log.debug("Generated email body: {}", body);
 
         Map<String, Object> message = Map.of(
                 "Messages", List.of(Map.of(
@@ -32,11 +39,19 @@ public class MailjetService {
                 ))
         );
 
+        // Log the message content for debugging
+        log.debug("Prepared message for email sending: {}", message);
+
         return webClient.post()
                 .uri("/send")
                 .bodyValue(message)
                 .retrieve()
                 .bodyToMono(String.class)
+                .doOnTerminate(() -> log.debug("Email sent to user: {}", user.getEmail()))  // Log after completion
+                .onErrorResume(e -> {
+                    log.error("Failed to send email to user: {}", user.getEmail(), e);
+                    return Mono.empty();  // Handle error gracefully
+                })
                 .then(); // convert response to Mono<Void>
     }
 
