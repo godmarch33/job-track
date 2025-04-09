@@ -19,10 +19,4 @@ public class Phase {
     private PhaseStatusInfoEntity statusInfoEntity;
     private int orderIndex;
 
-    public LocalDateTime getInterviewDate() {
-        if (interviewScheduleTime == null) {
-            return null;
-        }
-        return LocalDateTime.ofInstant(interviewScheduleTime, ZoneId.of("UTC"));
-    }
 }
