@@ -25,7 +25,7 @@ public class MailjetService {
 
         Map<String, Object> message = Map.of(
                 "Messages", List.of(Map.of(
-                        "From", Map.of("Email", "noreply@yourdomain.com", "Name", "Career Assistant"),
+                        "From", Map.of("Email", "noreply@xpatjob.co.uk", "Name", "Career Assistant"),
                         "To", List.of(Map.of("Email", user.getEmail(), "Name", user.getFullName())),
                         "Subject", "Interview Reminder",
                         "HTMLPart", body

@@ -3,6 +3,7 @@ package co.uk.offerland.job_track.config;
 import co.uk.offerland.job_track.domain.entity.nosql.Phase;
 import co.uk.offerland.job_track.infrastructure.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-
+@Slf4j
 @RequiredArgsConstructor
 public class InterviewReminderService {
 
@@ -33,7 +34,7 @@ public class InterviewReminderService {
                                 return date != null && !date.isBefore(start) && date.isBefore(end);
                             })
                             .toList();
-
+                        log.info("user: [{}], phases: [{}]", user.getEmail(), todayPhases);
                     if (!todayPhases.isEmpty()) {
                         return mailjetService.sendInterviewReminderEmail(user, todayPhases);
                     }
