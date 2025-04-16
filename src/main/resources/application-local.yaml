@@ -18,10 +18,13 @@ spring:
   data:
     mongodb:
       uri: mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track
+      auto-index-creation: true
   docker:
     compose:
       enabled: true
       file: docker-compose-local.yaml
+
+
 
   logging:
     level:
@@ -33,4 +36,4 @@ search:
     url: http://62.171.139.86:8001
 open:
   api:
-    key: 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
+    key:
