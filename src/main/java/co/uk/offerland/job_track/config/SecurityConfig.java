@@ -34,6 +34,7 @@ public class SecurityConfig {
                         .pathMatchers("/api/companies/sponsorship", "/login/**", "/oauth2/**", "/error").permitAll()
                         .pathMatchers("/api/analytics/**").hasRole("admin")
                         .pathMatchers("/api/users/**").hasRole("user")
+                        .pathMatchers("/api/payment/**").hasRole("admin")
                         .anyExchange().authenticated()
                 ).oauth2ResourceServer(oauth2 ->
                         oauth2

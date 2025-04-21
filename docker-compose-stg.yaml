@@ -38,6 +38,7 @@ services:
         - SPRING_PROFILES_ACTIVE=stg
         - SEARCH_SERVICE_URL=http://faiss-api:8001
         - OPEN_API_KEY=${OPEN_API_KEY}
+        - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
         - SPRING_DATA_MONGODB_URI=mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track?authSource=admin
         - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://keycloak:8080/realms/offerland-realm-app/protocol/openid-connect/certs
         - SPRING_SSL_ENABLED=false
@@ -140,6 +141,14 @@ services:
       retries: 5
     networks:
     - dev_network
+
+  telegram-bot:
+    image: telegram-bot
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    restart: unless-stopped
+    networks:
+      - dev_network
 
 volumes:
   mongo_data:

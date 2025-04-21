@@ -27,3 +27,7 @@ search:
 open:
   api:
     key: ${OPEN_API_KEY}
+
+stripe:
+  secret:
+    key: ${STRIPE_SECRET_KEY}

@@ -39,6 +39,7 @@ dependencies {
     implementation("dev.langchain4j:langchain4j-open-ai:1.0.0-beta1")
     implementation("com.github.ben-manes.caffeine:caffeine")
     implementation("org.apache.commons:commons-lang3:3.14.0")
+    implementation("com.stripe:stripe-java:24.6.0")
     implementation("org.jsoup:jsoup:1.16.1")
     implementation("org.json:json:20231013")
     implementation("org.bouncycastle:bcprov-jdk18on:1.80")
