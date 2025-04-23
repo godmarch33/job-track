@@ -10,7 +10,6 @@ spring:
   data:
     mongodb:
       uri: mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track
-      auto-index-creation: true
   logging:
     level:
       org:
