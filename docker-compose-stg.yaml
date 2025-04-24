@@ -35,16 +35,16 @@ services:
     depends_on:
       - mongodb
     environment:
-        - SPRING_PROFILES_ACTIVE=stg
-        - SEARCH_SERVICE_URL=http://faiss-api:8001
-        - OPEN_API_KEY=${OPEN_API_KEY}
-        - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
-        - SPRING_DATA_MONGODB_URI=mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track?authSource=admin
-        - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://keycloak:8080/realms/offerland-realm-app/protocol/openid-connect/certs
-        - SPRING_SSL_ENABLED=false
-        - SPRING_SSL_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.crt
-        - SPRING_SSL_CERTIFICATE_PRIVATE_KEY=/etc/ssl/certs/private.key
-        - SPRING_SSL_TRUST_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.ca-bundle.crt
+      - SPRING_PROFILES_ACTIVE=stg
+      - SEARCH_SERVICE_URL=http://faiss-api:8001
+      - OPEN_API_KEY=${OPEN_API_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - SPRING_DATA_MONGODB_URI=mongodb://admin:VerySecretPassword1986@mongodb:27017/job-track?authSource=admin
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://keycloak:8080/realms/offerland-realm-app/protocol/openid-connect/certs
+      - SPRING_SSL_ENABLED=false
+      - SPRING_SSL_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.crt
+      - SPRING_SSL_CERTIFICATE_PRIVATE_KEY=/etc/ssl/certs/private.key
+      - SPRING_SSL_TRUST_CERTIFICATE=/etc/ssl/certs/xpatjob.co.uk.ca-bundle.crt
     ports:
       - "8088:8088"
     volumes:
@@ -140,7 +140,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-    - dev_network
+      - dev_network
 
   telegram-bot:
     image: telegram-bot
@@ -150,10 +150,35 @@ services:
     networks:
       - dev_network
 
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka-kraft
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    volumes:
+      - kraft-data:/tmp/kraft-combined-logs
+    networks:
+      - dev_network
+
+
+
 volumes:
   mongo_data:
     driver: local
   postgres_data1:
+    driver: local
+  kraft-data:
     driver: local
 networks:
   dev_network:
