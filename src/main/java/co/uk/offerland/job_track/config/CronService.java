@@ -1,5 +1,6 @@
 package co.uk.offerland.job_track.config;
 
+import co.uk.offerland.job_track.application.usecases.InterviewReminderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

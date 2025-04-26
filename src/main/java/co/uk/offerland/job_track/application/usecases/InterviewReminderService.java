@@ -1,4 +1,4 @@
-package co.uk.offerland.job_track.config;
+package co.uk.offerland.job_track.application.usecases;
 
 import co.uk.offerland.job_track.domain.entity.nosql.Phase;
 import co.uk.offerland.job_track.infrastructure.persistence.UserRepository;

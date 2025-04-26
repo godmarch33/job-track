@@ -13,19 +13,19 @@ services:
     volumes:
       - mongodb_data:/data/db
 
-  faiss-api:
-    image: faiss-faiss-api:latest
-    container_name: faiss-api
-    ports:
-      - "8001:8001"
-    volumes:
-      - ./faiss_data:/app/faiss_data
-      - /home/deploy/faiss/app:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-    restart: always
-    networks:
-      - dev_network
+#  faiss-api:
+#    image: faiss-faiss-api:latest
+#    container_name: faiss-api
+#    ports:
+#      - "8001:8001"
+#    volumes:
+#      - ./faiss_data:/app/faiss_data
+#      - /home/deploy/faiss/app:/app
+#    environment:
+#      - PYTHONUNBUFFERED=1
+#    restart: always
+#    networks:
+#      - dev_network
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -55,6 +55,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U keycloak -d keycloak" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   umami:
     image: ghcr.io/umami-software/umami:postgresql-latest
@@ -81,7 +86,7 @@ services:
   telegram-bot:
     image: telegram-bot
     environment:
-      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_BOT_TOKEN=7847725003:AAGapLlYlCXDYaY01R6xXFsTBNFh0hPH1Q8
     restart: unless-stopped
     networks:
       - dev_network
@@ -108,6 +113,8 @@ services:
       - dev_network
 
 volumes:
+  kraft-data:
+    driver: local
   mongodb_data:
     driver: local
   postgres_data:

@@ -1,4 +1,4 @@
-package co.uk.offerland.job_track.config;
+package co.uk.offerland.job_track.application.usecases;
 
 import co.uk.offerland.job_track.domain.entity.nosql.Phase;
 import co.uk.offerland.job_track.domain.entity.nosql.User;
@@ -17,16 +17,20 @@ public class MailjetService {
     private final WebClient webClient;
 
     public MailjetService(WebClient.Builder builder) {
-        this.webClient = builder.baseUrl("https://api.mailjet.com/v3")
-                .defaultHeaders(http -> http.setBasicAuth("df9b7be4be7af756c44fbd269b457519", "a7175be51a2569dbda4f316291144c7d"))
+        this.webClient = builder.baseUrl("https://api.mailjet.com/v3.1")
+                .defaultHeaders(http -> http.setBasicAuth("df9b7be4be7af756c44fbd269b457519", "fa7b45780e90b456b4f074d40ad04f80"))
                 .build();
     }
 
     public Mono<Void> sendInterviewReminderEmail(User user, List<Phase> phases) {
-        // Log the input data for debugging purposes
+        if (user == null || user.getEmail() == null || user.getEmail().isBlank()) {
+            log.warn("Cannot send interview reminder: user or user email is null/empty.");
+            return Mono.empty();
+        }
+
         log.debug("Sending interview reminder email to user: {}", user.getEmail());
 
-        String body = generateEmailBody(user, phases);
+        var body = generateEmailBody(phases);
         log.debug("Generated email body: {}", body);
 
         Map<String, Object> message = Map.of(
@@ -38,7 +42,6 @@ public class MailjetService {
                 ))
         );
 
-        // Log the message content for debugging
         log.debug("Prepared message for email sending: {}", message);
 
         return webClient.post()
@@ -46,15 +49,13 @@ public class MailjetService {
                 .bodyValue(message)
                 .retrieve()
                 .bodyToMono(String.class)
-                .doOnTerminate(() -> log.debug("Email sent to user: {}", user.getEmail()))  // Log after completion
-                .onErrorResume(e -> {
-                    log.error("Failed to send email to user: {}", user.getEmail(), e);
-                    return Mono.empty();  // Handle error gracefully
-                })
-                .then(); // convert response to Mono<Void>
+                .doOnSuccess(response -> log.debug("Email sent successfully to user: {}. Response: {}", user.getEmail(), response))
+                .doOnError(e -> log.error("Failed to send email to user: {}", user.getEmail(), e))
+                .onErrorResume(e -> Mono.empty())
+                .then();
     }
 
-    private String generateEmailBody(User user, List<Phase> phases) {
+    private String generateEmailBody(List<Phase> phases) {
         StringBuilder sb = new StringBuilder("<h2>Today you have the following interviews:</h2><ul>");
         for (Phase phase : phases) {
             sb.append("<li>")
