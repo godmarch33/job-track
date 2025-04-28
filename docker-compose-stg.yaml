@@ -86,11 +86,11 @@ services:
       - KC_BOOTSTRAP_ADMIN_USERNAME=admin
       - KC_BOOTSTRAP_ADMIN_PASSWORD=superAdmin!123
       - KC_PROXY=edge
-      - KC_HOSTNAME=xpatjob.co.uk
-      - KC_HOSTNAME_URL=https://xpatjob.co.uk
-      - KC_HOSTNAME_ADMIN_URL=https://xpatjob.co.uk
+      - KC_HOSTNAME=auth.xpatjob.co.uk
+      - KC_HOSTNAME_URL=https://auth.xpatjob.co.uk
+      - KC_HOSTNAME_ADMIN_URL=https://auth.xpatjob.co.uk
       - KC_HOSTNAME_STRICT=false
-      - KEYCLOAK_FRONTEND_URL=https://xpatjob.co.uk
+      - KEYCLOAK_FRONTEND_URL=https://auth.xpatjob.co.uk
       - KC_PROXY_HEADERS=xforwarded
       - KC_CACHE_THEMES=false
       - KC_CACHE_TEMPLATES=false
