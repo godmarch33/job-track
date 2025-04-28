@@ -116,7 +116,7 @@ services:
       - /home/deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
       - /home/deploy/certs:/etc/nginx/certs
       - /etc/letsencrypt:/etc/letsencrypt:ro
-      - /home/deploy/job-track/site:/var/www/html
+      - /home/deploy/job-track/site:/usr/share/nginx/html:ro
     networks:
       - dev_network
     depends_on:
