@@ -34,6 +34,7 @@ services:
     container_name: job-track-original
     depends_on:
       - mongodb
+      - kafka
     environment:
       - SPRING_PROFILES_ACTIVE=stg
       - SEARCH_SERVICE_URL=http://faiss-api:8001
@@ -149,6 +150,8 @@ services:
     restart: unless-stopped
     networks:
       - dev_network
+    depends_on:
+      - kafka
 
   kafka:
     image: bitnami/kafka:latest
