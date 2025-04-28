@@ -31,7 +31,6 @@ public class InterviewReminderSender {
     public void sendDueReminders() {
         log.info("Start cron job:sendDueReminders");
         Instant now = Instant.now();
-        log.info("time now: {}", now);
         Instant windowStart = now.minus(1, ChronoUnit.MINUTES);
         Instant windowEnd = now.plus(48, ChronoUnit.HOURS);
 
