@@ -9,7 +9,25 @@ server:
 #    key-store: classpath:ssl/localhost.p12
 #    key-store-password: passwordpassword
 
+
 spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: jobTrackConsumerGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.springframework.kafka.support.serializer.ToStringSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.springframework.kafka.support.serializer.ToStringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
   security:
     oauth2:
       resourceserver:

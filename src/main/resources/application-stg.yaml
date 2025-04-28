@@ -1,6 +1,22 @@
 server:
   port: 8088
 spring:
+  kafka:
+    consumer:
+      bootstrap-servers: kafka:9092
+      group-id: jobTrackConsumerGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.springframework.kafka.support.serializer.ToStringSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+    producer:
+      bootstrap-servers: kafka:9092
+      key-serializer: org.springframework.kafka.support.serializer.ToStringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   spring:
     security:
       oauth2:

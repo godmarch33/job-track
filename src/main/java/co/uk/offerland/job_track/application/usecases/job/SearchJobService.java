@@ -1,10 +1,6 @@
 package co.uk.offerland.job_track.application.usecases.job;
 
-import co.uk.offerland.job_track.application.dto.CompanyVisaSponsorshipDto;
-import co.uk.offerland.job_track.application.dto.RecognizeJobUrlResponse;
-import com.github.benmanes.caffeine.cache.Cache;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;

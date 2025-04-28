@@ -86,9 +86,10 @@ public class PaymentController {
                         return Mono.just(ResponseEntity.ok("Received"));
                     } catch (SignatureVerificationException e) {
                         return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid signature"));
-                    } catch (StripeException e) {
-                        return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Stripe error"));
                     }
+//                    catch (StripeException e) {
+//                        return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Stripe error"));
+//                    }
                 });
     }
 }
