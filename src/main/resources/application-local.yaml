@@ -12,6 +12,8 @@ server:
 
 spring:
   kafka:
+    admin:
+      bootstrap-servers: localhost:9092
     consumer:
       bootstrap-servers: localhost:9092
       group-id: jobTrackConsumerGroup
