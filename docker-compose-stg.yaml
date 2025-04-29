@@ -173,7 +173,7 @@ services:
       - kraft-data:/tmp/kraft-combined-logs
     networks:
       - dev_network
-      -
+
   offerland-web:
     image: offerland-web
     ports:
