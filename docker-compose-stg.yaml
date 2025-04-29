@@ -116,7 +116,7 @@ services:
       - /home/deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
       - /home/deploy/certs:/etc/nginx/certs
       - /etc/letsencrypt:/etc/letsencrypt:ro
-      - /home/deploy/job-track/site:/var/www/html
+      - /home/deploy/job-track/site:/usr/share/nginx/html:ro
     networks:
       - dev_network
     depends_on:
@@ -171,6 +171,16 @@ services:
     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
     volumes:
       - kraft-data:/tmp/kraft-combined-logs
+    networks:
+      - dev_network
+      -
+  offerland-web:
+    image: offerland-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: always
     networks:
       - dev_network
 
