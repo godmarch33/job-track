@@ -11,6 +11,8 @@ spring:
       key-deserializer: org.springframework.kafka.support.serializer.ToStringSerializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
+        fetch.max.bytes: 500000000 # 500MB
+        max.partition.fetch.bytes: 500000000 # 500MB
         spring:
           json:
             trusted:
@@ -19,6 +21,8 @@ spring:
       bootstrap-servers: kafka:9092
       key-serializer: org.springframework.kafka.support.serializer.ToStringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        max.request.size: 500000000 # 500MB
   spring:
     security:
       oauth2:
